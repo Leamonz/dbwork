@@ -1,0 +1,39 @@
+/*#upload_image {*/
+/*    display: none;*/
+/*}*/
+
+/*#upload_image_label {*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    width: 256px;*/
+/*    height: 192px;*/
+/*    background-color: #efefef;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+/*#upload_image_label i {*/
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    margin-left: -75px;*/
+/*    top: 50%;*/
+/*    margin-top: -75px;*/
+/*    color: #FFFFFF;*/
+/*    font-size: 150px;*/
+/*}*/
+
+/*#upload_image_preview {*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    width: 256px;*/
+/*    height: 192px;*/
+/*}*/
+
+/*img[src=""] {*/
+/*    visibility: hidden;*/
+/*}*/
+
+
+.preview {
+    width: 256px;
+    max-height: 300px;
+}

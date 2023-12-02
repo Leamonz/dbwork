@@ -1,0 +1,50 @@
+<!-- Modal -->
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" enctype="multipart/form-data" method="post" id="modify_form">
+                    <div class="form-group">
+                        <label class="form-label">商品名</label>
+                        <input type="text" class="form-control" id="modify_goodname" name="modify_goodname">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">商品价格</label>
+                        <input type="text" class="form-control" id="modify_goodprice" name="modify_goodprice">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">商品数量</label>
+                        <input type="text" class="form-control" id="modify_goodnum" name="modify_goodnum">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">商品图片</label>
+                        <input type="file" class="dropify" id="modify_upload_image" name="modify_upload_image"
+                               accept="image/*"
+                               data-allowed-file-extensions="jpg jpeg png">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">商品描述</label>
+                        <textarea rows="3" class="form-control no-resize"
+                                  id="modify_description"
+                                  name="modify_description"
+                                  placeholder="简单描述下你的商品吧..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeButton" data-dismiss="modal"
+                        onclick="$('#modifyModal').modal('hide');">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="modifyConfirmButton">确认
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

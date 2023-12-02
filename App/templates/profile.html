@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Crush it Able The most popular Admin Dashboard template and ui kit">
+    <meta name="author" content="PuffinTheme the theme designer">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+
+    <title>:: Crush it :: Page Profile</title>
+
+    <!-- Bootstrap Core and vandor -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css"/>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
+    <link rel="stylesheet" href="/static/plugins/multi-select/css/multi-select.css">
+    <link rel="stylesheet" href="/static/plugins/dropify/css/dropify.min.css">
+
+    <!-- Core css -->
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link rel="stylesheet" href="/static/css/theme4.css" id="stylesheet"/>
+
+    <link rel="stylesheet" href="/static/css/profile.css">
+</head>
+
+<body class="font-opensans" onload="onLoadFunction();">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+</div>
+
+<!-- Start main html -->
+<div id="main_content">
+
+    <!-- Small icon top menu -->
+    <div id="header_top" class="header_top">
+        <div class="container">
+            <div class="hleft">
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar"
+                                                                                src="/static/images/user.png"
+                                                                                alt=""/></a>
+                    <a href="page-search.html" class="nav-link icon"><i class="fa fa-search"></i></a>
+                    <a href="index.html" class="nav-link icon"><i class="fa fa-home"></i></a>
+                    <a href="app-email.html" class="nav-link icon app_inbox"><i class="fa fa-envelope"></i></a>
+                    <a href="app-chat.html" class="nav-link icon xs-hide"><i class="fa fa-comments"></i></a>
+                    <a href="app-filemanager.html" class="nav-link icon app_file xs-hide"><i
+                            class="fa fa-folder"></i></a>
+                </div>
+            </div>
+            <div class="hright">
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fa fa-bell"></i></a>
+                    <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fa fa-navicon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification and  Activity-->
+    {% include "./frame/frame_right_sidebar.html" %}
+
+    <!-- start User detail -->
+    {% include "./frame/frame_user.html" %}
+
+    <!-- start Main menu -->
+    {% include "./frame/frame_left_sidebar.html" %}
+
+    <!-- start main body part-->
+    <div class="page">
+        <!-- start body header -->
+        <div id="page_top" class="section-body">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="left">
+                        <h1 class="page-title">个人档案</h1>
+                    </div>
+                    <div class="right">
+                        <div class="notification d-flex">
+                            <button type="button" class="btn btn-facebook"><i class="fa fa-info-circle mr-2"></i>Need
+                                Help
+                            </button>
+                            <button type="button" class="btn btn-facebook"><i class="fa fa-file-text mr-2"></i>Data
+                                export
+                            </button>
+                            <button type="button" class="btn btn-facebook"><i class="fa fa-power-off mr-2"></i>Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs page-header-tab">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                           role="tab"
+                           aria-controls="pills-profile" aria-selected="true">档案</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-calendar-tab" data-toggle="pill" href="#pills-calendar"
+                           role="tab" aria-controls="pills-calendar" aria-selected="false">日历</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab"
+                           aria-controls="pills-timeline" aria-selected="false">预约记录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-blog-tab" data-toggle="pill" href="#pills-blog" role="tab"
+                           aria-controls="pills-blog" aria-selected="false">发布商品信息</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="section-body py-4">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <img class="card-img-top" src="/static/img-top.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ username }}</h4>
+                                <ul class="social-links list-inline mb-4">
+                                    <li class="list-inline-item"><a href="javascript:void(0)" title="Facebook"
+                                                                    data-toggle="tooltip"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li class="list-inline-item"><a href="javascript:void(0)" title="Twitter"
+                                                                    data-toggle="tooltip"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li class="list-inline-item"><a href="javascript:void(0)" title="1234567890"
+                                                                    data-toggle="tooltip"><i
+                                            class="fa fa-phone"></i></a></li>
+                                    <li class="list-inline-item"><a href="javascript:void(0)" title="@skypename"
+                                                                    data-toggle="tooltip"><i
+                                            class="fa fa-skype"></i></a></li>
+                                </ul>
+                                {#                                <p class="card-text">795 Folsom Ave, Suite 600 San Francisco, 94107</p>#}
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><strong>3265</strong></h6>
+                                        <span>Post</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6><strong>1358</strong></h6>
+                                        <span>Followers</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6><strong>10K</strong></h6>
+                                        <span>Likes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">E-Mail: {{ mailaddress }}</li>
+                                <li class="list-group-item">QQ: {{ qqid if qqid is not none else "" }}</li>
+                                <li class="list-group-item">WeChat: {{ wechatid if wechatid is not none else "" }}</li>
+                                <li class="list-group-item">{{ nowDate }}</li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="javascript:void(0);" class="card-link">View More</a>
+                                <a href="javascript:void(0);" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                        <div class="tab-content" id="pills-tabContent">
+                            {% include "profile_pills/pills_profile.html" %}
+                            {% include "profile_pills/pills_calendar.html" %}
+                            {% include "profile_pills/pills_timeline.html" %}
+                            {% include "profile_pills/pills_blog.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start page footer -->
+        <div class="section-body">
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Copyright © 2019 <a href="https://www.php.cn/">PuffinTheme</a>.
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-md-right">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item"><a href="">Portfolio</a></li>
+                                <li class="list-inline-item"><a href="javascript:void(0)">FAQ</a></li>
+                                <li class="list-inline-item"><a href="javascript:void(0)"
+                                                                class="btn btn-outline-primary btn-sm">Buy Now</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-icon alert-success" id="alert-success" role="alert" style="display: none;">
+    <i class="fe fe-check mr-2" aria-hidden="true"></i> <span id="alert-body"></span>
+</div>
+
+{% include "./goods_modals/deleteModal.html" %}
+{% include "./goods_modals/modifyModal.html" %}
+
+
+<!-- jQuery and bootstrtap js -->
+<script src="/static/bundles/lib.vendor.bundle.js"></script>
+
+<!-- start plugin js file  -->
+<script src="/static/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/static/plugins/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="/static/plugins/multi-select/js/jquery.multi-select.js"></script>
+<script src="/static/plugins/jquery.maskedinput/jquery.maskedinput.min.js"></script>
+<script src="/static/plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+<script src="/static/plugins/dropify/js/dropify.min.js"></script>
+
+<!-- Start core js and page js -->
+<script src="/static/js/core.js"></script>
+<script src="/static/assets/js/form/form-advanced.js"></script>
+
+<script src="/static/js/profile.js"></script>
+<script src="/static/js/goods.js"></script>
+
+</body>
+</html>

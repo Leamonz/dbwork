@@ -1,0 +1,71 @@
+<div class="tab-pane fade" id="pills-blog" role="tabpanel" aria-labelledby="pills-blog-tab">
+    <div class="card">
+        <form action="" enctype="multipart/form-data" method="post" id="goods_form">
+            <div class="card-body">
+                <div class="card-title">发布新商品</div>
+                <div class="new_post">
+                    <div class="row clearfix">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="form-label">商品名称</label>
+                                <input type="text" class="form-control"
+                                       id="goodname" name="goodname"
+                                       placeholder="商品名称...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">商品价格</label>
+                                <input type="text" class="form-control"
+                                       id="goodprice" name="goodprice"
+                                       placeholder="商品价格...">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">商品数量</label>
+                                <input type="text" class="form-control"
+                                       id="goodnum" name="goodnum"
+                                       placeholder="商品数量...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="form-group card-body">
+                            <label class="form-label">上传商品图片</label>
+                            <div class="clearfix">
+                                <input type="file" class="dropify" id="upload_image" name="upload_image"
+                                       accept="image/*"
+                                       data-allowed-file-extensions="jpg jpeg png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="form-label">商品描述</label>
+                                <textarea rows="3" class="form-control no-resize"
+                                          id="description"
+                                          name="description"
+                                          placeholder="简单描述下你的商品吧..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+        <div class="card-footer">
+            <input type="hidden" value="id">
+            <div class="mt-4 text-right">
+                <button class="btn btn-warning"><i class="icon-link"></i></button>
+                <button class="btn btn-warning"><i class="icon-camera"></i></button>
+                <button class="btn btn-primary" onclick="addNewGood();">发布</button>
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="list-unstyled" id="all_goods">
+
+</ul>
+</div>
