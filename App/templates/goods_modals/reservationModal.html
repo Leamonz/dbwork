@@ -1,0 +1,47 @@
+<!-- Modal -->
+<div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">预约信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">商家</label>
+                    <input type="text" class="form-control" id="seller_username" name="seller_username"
+                           value="{{ goods.sellerusername }}"
+                           readonly="readonly">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">商品</label>
+                    <input type="text" class="form-control" id="goods_name" name="goods_name"
+                           value="{{ goods.goodname }}"
+                           readonly="readonly">
+                </div>
+                <div class="col-md-12">
+                    <h5>订单信息</h5>
+                    <div class="form-group">
+                        <label class="form-label">数量()</label>
+                        <input type="text" class="form-control" placeholder="预约商品数量"
+                               id="numberOfGoods" name="numberOfGoods">
+                        <label class="form-label">总价</label>
+                        <input type="text" class="form-control" placeholder="预约商品总价格"
+                               id="totalPrice" name="totalPrice" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeButton" data-dismiss="modal"
+                        onclick="$('#modifyModal').modal('hide');">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="reservationConfirmButton">
+                    提交订单
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

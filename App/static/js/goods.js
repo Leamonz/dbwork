@@ -23,7 +23,7 @@ async function getGoodsList() {
         var list = res.goods;
         for (var i = 0; i < list.length; i++) {
             var goods = list[i];
-            var imageurl = goods.imageurl !== null ? "data:image/png;base64," + goods.imageurl : "/static/images/gallery/6.jpg";
+            var imageurl = goods.imageurl !== null ? goods.imageurl : "/static/images/gallery/6.jpg";
             var description = goods.description;
             if (description === undefined || description === null) {
                 description = "";

@@ -1,0 +1,227 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Crush it Able The most popular Admin Dashboard template and ui kit">
+    <meta name="author" content="PuffinTheme the theme designer">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+
+    <title>:: Crush it :: Blog</title>
+
+    <!-- Bootstrap Core and vandor -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+    <!-- Core css -->
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link rel="stylesheet" href="/static/css/theme4.css" id="stylesheet"/>
+    <link rel="stylesheet" href="/static/css/mart.css">
+</head>
+
+<body class="font-opensans" onload="onLoadFunction();">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+</div>
+
+<!-- Start main html -->
+<div id="main_content">
+
+    <!-- Small icon top menu -->
+    <div id="header_top" class="header_top">
+        <div class="container">
+            <div class="hleft">
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar"
+                                                                                src="/static/images/user.png"
+                                                                                alt=""/></a>
+                    <a href="page-search.html" class="nav-link icon"><i class="fa fa-search"></i></a>
+                    <a href="index.html" class="nav-link icon"><i class="fa fa-home"></i></a>
+                    <a href="app-email.html" class="nav-link icon app_inbox"><i class="fa fa-envelope"></i></a>
+                    <a href="app-chat.html" class="nav-link icon xs-hide"><i class="fa fa-comments"></i></a>
+                    <a href="app-filemanager.html" class="nav-link icon app_file xs-hide"><i
+                            class="fa fa-folder"></i></a>
+                </div>
+            </div>
+            <div class="hright">
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fa fa-bell"></i></a>
+                    <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fa fa-navicon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification and  Activity-->
+    {% include "frame/frame_right_sidebar.html" %}
+
+    <!-- start User detail -->
+    <div class="user_div">
+        <h5 class="brand-name mb-4">User Crush<a href="javascript:void(0)" class="user_btn"><i
+                class="icon-close"></i></a></h5>
+        <div class="card">
+            <img class="card-img-top" src="/static/images/gallery/6.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Daniel Kristeen</h5>
+                <p class="card-text">795 Folsom Ave, Suite 600 San Francisco, 94107</p>
+                <div class="row">
+                    <div class="col-4">
+                        <h6><strong>3265</strong></h6>
+                        <small>Post</small>
+                    </div>
+                    <div class="col-4">
+                        <h6><strong>1358</strong></h6>
+                        <small>Followers</small>
+                    </div>
+                    <div class="col-4">
+                        <h6><strong>10K</strong></h6>
+                        <small>Likes</small>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">michael@example.com</li>
+                <li class="list-group-item">+ 202-555-2828</li>
+                <li class="list-group-item">October 22th, 1990</li>
+            </ul>
+            <div class="card-body">
+                <a href="javascript:void(0);" class="card-link">View More</a>
+                <a href="javascript:void(0);" class="card-link">Another link</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="d-block">Total Income<span class="float-right">77%</span></label>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="77" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 77%;"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="d-block">Total Expenses <span class="float-right">50%</span></label>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 50%;"></div>
+                    </div>
+                </div>
+                <div class="form-group mb-0">
+                    <label class="d-block">Gross Profit <span class="float-right">23%</span></label>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="23" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 23%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="d-block">Storage <span class="float-right">77%</span></label>
+            <div class="progress progress-sm">
+                <div class="progress-bar" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 77%;"></div>
+            </div>
+            <button type="button" class="btn btn-primary btn-block mt-3">Upgrade Storage</button>
+        </div>
+    </div>
+
+    <!-- start Main menu -->
+    {% include "frame/frame_left_sidebar.html" %}
+
+    <!-- start main body part-->
+    <div class="page">
+
+        <!-- start body header -->
+        <div id="page_top" class="section-body">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="left">
+                        <h1 class="page-title">Blog</h1>
+                    </div>
+                    <div class="right">
+                        <div class="notification d-flex">
+                            <button type="button" class="btn btn-facebook"><i class="fa fa-info-circle mr-2"></i>Need
+                                Help
+                            </button>
+                            <button type="button" class="btn btn-facebook"><i class="fa fa-file-text mr-2"></i>Data
+                                export
+                            </button>
+                            <button type="button" class="btn btn-facebook"><i class="fa fa-power-off mr-2"></i>Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body mt-3">
+            <div class="container-fluid">
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <a href="app-blog-post.html" class="btn btn-primary mr-2">New Post</a>
+                                <div class="page-subtitle ml-0">1 - 12 of 125 Post</div>
+                                <div class="page-options d-flex">
+                                    <select class="form-control custom-select w-auto">
+                                        <option value="asc">- Select -</option>
+                                        <option value="asc">Newest</option>
+                                        <option value="desc">Oldest</option>
+                                    </select>
+                                    <div class="input-icon ml-2">
+                                        <span class="input-icon-addon">
+                                            <i class="fe fe-search"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Search Post">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-columns" id="mart_goods">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start page footer -->
+        <div class="section-body">
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Copyright © 2019 <a href="https://www.php.cn/">PuffinTheme</a>.
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-md-right">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item"><a href="">Portfolio</a></li>
+                                <li class="list-inline-item"><a href="javascript:void(0)">FAQ</a></li>
+                                <li class="list-inline-item"><a href="javascript:void(0)"
+                                                                class="btn btn-outline-primary btn-sm">Buy Now</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery and bootstrtap js -->
+<script src="/static/bundles/lib.vendor.bundle.js"></script>
+
+<!-- start plugin js file  -->
+
+<!-- Start core js and page js -->
+<script src="/static/js/core.js"></script>
+
+<script src="/static/js/mart.js"></script>
+</body>
+</html>

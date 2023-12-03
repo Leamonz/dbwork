@@ -107,6 +107,10 @@
                            aria-controls="pills-timeline" aria-selected="false">预约记录</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-mygoods" role="tab"
+                           aria-controls="pills-timeline" aria-selected="false">我的商品</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="pills-blog-tab" data-toggle="pill" href="#pills-blog" role="tab"
                            aria-controls="pills-blog" aria-selected="false">发布商品信息</a>
                     </li>
@@ -168,6 +172,7 @@
                             {% include "profile_pills/pills_profile.html" %}
                             {% include "profile_pills/pills_calendar.html" %}
                             {% include "profile_pills/pills_timeline.html" %}
+                            {% include "profile_pills/pills_goods.html" %}
                             {% include "profile_pills/pills_blog.html" %}
                         </div>
                     </div>

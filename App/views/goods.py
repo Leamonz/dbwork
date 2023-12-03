@@ -13,7 +13,9 @@ from werkzeug.utils import secure_filename
 
 from ..models import *
 
-goods_blueprint = Blueprint("goods", __name__, url_prefix="/goods")
+goods_blueprint = Blueprint("goods",
+                            __name__,
+                            url_prefix="/goods")
 
 
 @goods_blueprint.route("/<string:username>/getAll/", methods=["GET", "POST"])
@@ -25,9 +27,34 @@ def getAll(username):
         goodsObject = Goods.query.filter_by(sellerusername=username).all()
         columns = Goods.__table__.columns
         for goods in goodsObject:
-            with open(goods.imageurl, "rb") as f:
-                output_base64 = base64.b64encode(f.read()).decode("utf-8")
-            goods.imageurl = output_base64
+            anObject = {}
+            for col in columns:
+                anObject[col.name] = getattr(goods, col.name)
+            goodsList.append(anObject)
+    except Exception as e:
+        print(str(e))
+        result_msg = "database internal error"
+        result_code = 6
+    # print(goodsList)
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "goods": goodsList,
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
+
+
+@goods_blueprint.route("/mart/getAll/", methods=["GET", "POST"])
+def martGetAll():
+    result_msg = "ok"
+    result_code = 0
+    goodsList = []
+    try:
+        goodsObject = Goods.query.all()
+        columns = Goods.__table__.columns
+        for goods in goodsObject:
             anObject = {}
             for col in columns:
                 anObject[col.name] = getattr(goods, col.name)
@@ -57,9 +84,9 @@ def getOne(username):
     columns = Goods.__table__.columns
     for col in columns:
         responseGoods[col.name] = getattr(goods, col.name)
-    with open(goods.imageurl, "rb") as f:
-        output_base64 = base64.b64encode(f.read()).decode("utf-8")
-    responseGoods["imageurl"] = output_base64
+    # with open(goods.imageurl, "rb") as f:
+    #     output_base64 = base64.b64encode(f.read()).decode("utf-8")
+    # responseGoods["imageurl"] = output_base64
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
         "result_code": result_code,
