@@ -1,3 +1,5 @@
+import datetime
+
 import flask
 from flask import Blueprint
 
@@ -51,6 +53,47 @@ def getSellerById(sellerUsername):
         "result_msg": result_msg,
         "result_code": result_code,
         "seller": responseSeller
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
+
+
+@mart_blueprint.route("/reservation/", methods=["POST"])
+def makeAReservation():
+    result_msg = "ok"
+    result_code = 0
+    buyerUsername = flask.request.form.get("buyer")
+    sellerUsername = flask.request.form.get("seller")
+    goodid = flask.request.form.get("goodid")
+    number = flask.request.form.get("num")
+    total = flask.request.form.get("total")
+    goods = Goods.query.filter_by(goodid=goodid).first()
+    try:
+        buyer = Student.query.filter_by(username=buyerUsername).first()
+        if not buyer:
+            raise ValueError
+        seller = Student.query.filter_by(username=sellerUsername).first()
+        if not seller:
+            raise ValueError
+        datePrefix = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        rid = "R" + datePrefix + seller.sid[-4:] + buyer.sid[-4:]
+        newReservation = Reservation(rid, buyerUsername, sellerUsername, goodid, number, total)
+        goods.num -= 1
+        db.session.add(newReservation)
+        db.session.add(goods)
+        db.session.commit()
+    except ValueError as e:
+        result_msg = "user not found"
+        result_code = 23
+        print(str(e))
+    except Exception as e:
+        result_msg = "database internal error"
+        result_code = 6
+        print(str(e))
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code
     }), 200)
     response.content_type = "application/json"
     response.access_control_allow_origin = "*"

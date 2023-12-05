@@ -58,7 +58,8 @@ def martGetAll():
             anObject = {}
             for col in columns:
                 anObject[col.name] = getattr(goods, col.name)
-            goodsList.append(anObject)
+            if anObject["goodnum"]:
+                goodsList.append(anObject)
     except Exception as e:
         print(str(e))
         result_msg = "database internal error"
@@ -84,9 +85,6 @@ def getOne(username):
     columns = Goods.__table__.columns
     for col in columns:
         responseGoods[col.name] = getattr(goods, col.name)
-    # with open(goods.imageurl, "rb") as f:
-    #     output_base64 = base64.b64encode(f.read()).decode("utf-8")
-    # responseGoods["imageurl"] = output_base64
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
         "result_code": result_code,

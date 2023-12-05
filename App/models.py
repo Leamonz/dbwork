@@ -48,3 +48,21 @@ class Goods(db.Model):
         self.goodnum = goodNumber
         self.goodprice = goodPrice
         self.sellerusername = sellerUsername
+
+
+class Reservation(db.Model):
+    __table_name__ = "reservation"
+    rid = db.Column(db.String(255), primary_key=True)
+    buyerusername = db.Column(db.String(20), db.ForeignKey("users.username"))
+    sellerusername = db.Column(db.String(20), db.ForeignKey("users.username"))
+    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"))
+    num = db.Column(db.Integer(), default=0)
+    total = db.Column(db.Numeric(precision=15, scale=2), nullable=False)
+
+    def __init__(self, rid, buyer, seller, goodid, num, total):
+        self.rid = rid
+        self.buyerusername = buyer
+        self.sellerusername = seller
+        self.goodid = goodid
+        self.num = num
+        self.total = total

@@ -27,7 +27,27 @@ function getUserById() {
 
 function showReservationModal() {
     $("#reservationModal #reservationConfirmButton").click((e) => {
-
+        var buyer = localStorage.getItem("username");
+        var seller = $("#reservationModal #seller_username").val();
+        var goodid = document.querySelector("#goods_card").dataset.id;
+        var num = $("#numberOfGoods").val();
+        var price = $("#totalPrice").val();
+        var url = "http://localhost:8888/mart/reservation/";
+        var data = {
+            "buyer": buyer,
+            "seller": seller,
+            "goodid": goodid,
+            "num": num,
+            "total": price
+        };
+        console.log(data);
+        $.post(
+            url,
+            data,
+            (res) => {
+                console.log(res.result_msg);
+            }
+        )
     })
     $("#reservationModal").modal("show");
 }
