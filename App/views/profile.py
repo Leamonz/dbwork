@@ -2,7 +2,7 @@ import datetime
 import random
 
 import flask
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, g
 from flask_mail import Message
 from ..models import *
 
@@ -11,6 +11,8 @@ profile_blueprint = Blueprint("profile", __name__, url_prefix="/profile")
 
 @profile_blueprint.route("/<string:username>/", methods=["GET", "POST"])
 def profile_page(username):
+    # username = flask.request.cookies.get("username")
+    # current_app.logger.debug(username)
     student = Student.query.filter_by(username=username).first()
     columns = Student.__table__.columns
     profile_dict = {}

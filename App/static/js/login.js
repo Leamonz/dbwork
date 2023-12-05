@@ -11,6 +11,7 @@ function onSignInButton() {
         console.log(res.result_msg);
         if (res.result_code === 0) {
             new Promise((resolve, reject) => {
+                localStorage.setItem("username", data.username);
                 showModal("登录成功");
                 resolve("ok");
             }).then((res1) => {

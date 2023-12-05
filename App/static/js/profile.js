@@ -10,7 +10,7 @@ function onUpdateButton() {
         "qqid": $("#qqid").val(),
         "wechatid": $("#wechatid").val()
     };
-    var url = "http://localhost:8888/profile/" + username + "/update/";
+    var url = "http://localhost:8888/profile/update/";
     $.post(url, data, (res) => {
         console.log(res.result_msg);
         window.location.reload();
