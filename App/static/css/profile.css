@@ -37,3 +37,8 @@
     width: 256px;
     max-height: 400px;
 }
+
+.info-preview {
+    width: 256px;
+    height: 256px;
+}

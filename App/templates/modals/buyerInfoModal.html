@@ -1,0 +1,40 @@
+<!-- Modal -->
+<div class="modal fade" id="buyerInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">买家信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">买家</label>
+                    <input type="text" class="form-control" id="buyer_username" name="buyer_username"
+                           readonly="readonly">
+                </div>
+                <div class="col-md-12">
+                    <h5>其他联系方式</h5>
+                    <div class="form-group">
+                        <label class="form-label">邮箱</label>
+                        <input type="text" class="form-control" placeholder="这位买家没有给出TA的邮箱"
+                               id="buyer_email" name="buyer_email" readonly="readonly">
+                        <label class="form-label">QQ</label>
+                        <input type="text" class="form-control" placeholder="这位买家没有给出TA的QQ"
+                               id="buyer_qqid" name="buyer_qqid" readonly="readonly">
+                        <label class="form-label">WeChat</label>
+                        <input type="text" class="form-control" placeholder="这位买家没有给出TA的微信"
+                               id="buyer_wechatid" name="buyer_wechatid" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeButton" data-dismiss="modal"
+                        onclick="$('#buyerInfoModal').modal('hide');">关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

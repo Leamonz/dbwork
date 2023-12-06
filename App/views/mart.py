@@ -22,6 +22,30 @@ def test():
     return flask.render_template("goods_detail.html")
 
 
+@mart_blueprint.route("/<string:goodid>/", methods=["POST"])
+def getGoods(goodid):
+    result_msg = "ok"
+    result_code = 0
+    responseGoods = {}
+    try:
+        goods = Goods.query.filter_by(goodid=goodid).first()
+        columns = Goods.__table__.columns
+        for col in columns:
+            responseGoods[col.name] = getattr(goods, col.name)
+    except Exception as e:
+        print(str(e))
+        result_msg = "goods not found"
+        result_code = 24
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "goods": responseGoods
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
+
+
 @mart_blueprint.route("/<string:goodid>/page/")
 def detailPage(goodid):
     result_msg = "ok"
@@ -33,30 +57,6 @@ def detailPage(goodid):
         result_msg = "goods not found"
         result_code = 24
     return flask.render_template("goods_detail.html", goods=goods)
-
-
-@mart_blueprint.route("/getSeller/<string:sellerUsername>/", methods=["GET", "POST"])
-def getSellerById(sellerUsername):
-    result_msg = "ok"
-    result_code = 0
-    responseSeller = {}
-    try:
-        seller = Student.query.filter_by(username=sellerUsername).first()
-        columns = Student.__table__.columns
-        for col in columns:
-            responseSeller[col.name] = getattr(seller, col.name)
-    except Exception as e:
-        print(str(e))
-        result_msg = "user not found"
-        result_code = 23
-    response = flask.make_response(flask.jsonify({
-        "result_msg": result_msg,
-        "result_code": result_code,
-        "seller": responseSeller
-    }), 200)
-    response.content_type = "application/json"
-    response.access_control_allow_origin = "*"
-    return response
 
 
 @mart_blueprint.route("/reservation/", methods=["POST"])
@@ -74,8 +74,8 @@ def makeAReservation():
         result_code = 5
         print(str(e))
     create_time = datetime.datetime.now().strftime("%Y-%m-%d")
-    goods = Goods.query.filter_by(goodid=goodid).first()
     try:
+        goods = Goods.query.filter_by(goodid=goodid).first()
         buyer = Student.query.filter_by(username=buyerUsername).first()
         if not buyer:
             raise ValueError
@@ -98,6 +98,28 @@ def makeAReservation():
         result_msg = "database internal error"
         result_code = 6
         print(str(e))
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
+
+
+@mart_blueprint.route("/reservation/confirm_transaction/", methods=["POST"])
+def confirmATransaction():
+    result_msg = "ok"
+    result_code = 0
+    rid = flask.request.form.get("rid")
+    try:
+        reservation = Reservation.query.filter_by(rid=rid).first()
+        db.session.delete(reservation)
+        db.session.commit()
+    except Exception as e:
+        print(str(e))
+        result_msg = "databse internal error"
+        result_code = 6
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
         "result_code": result_code

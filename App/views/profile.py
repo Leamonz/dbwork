@@ -158,3 +158,27 @@ def get_reservations(username):
     response.content_type = "application/json"
     response.access_control_allow_origin = "*"
     return response
+
+
+@profile_blueprint.route("/getUserById/<string:username>/", methods=["POST"])
+def getUserById(username):
+    result_msg = "ok"
+    result_code = 0
+    responseUser = {}
+    try:
+        seller = Student.query.filter_by(username=username).first()
+        columns = Student.__table__.columns
+        for col in columns:
+            responseUser[col.name] = getattr(seller, col.name)
+    except Exception as e:
+        print(str(e))
+        result_msg = "user not found"
+        result_code = 23
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "user": responseUser
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response

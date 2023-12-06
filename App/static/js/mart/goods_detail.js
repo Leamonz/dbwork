@@ -5,7 +5,7 @@ function showSellerModal() {
 
 function getUserById() {
     var sellerUsername = document.querySelector("#sellerUsername").innerText;
-    var url = "http://localhost:8888/mart/getSeller/" + sellerUsername + "/";
+    var url = "http://localhost:8888/profile/getUserById/" + sellerUsername + "/";
     var data = {};
     $.ajax({
         url: url,
@@ -14,8 +14,7 @@ function getUserById() {
         async: false,
         success: (res) => {
             console.log(res.result_msg);
-            console.log(res);
-            var seller = res.seller;
+            var seller = res.user;
             console.log(seller);
             $("#seller_username").val(sellerUsername);
             $("#seller_email").val(seller.mailaddress);
