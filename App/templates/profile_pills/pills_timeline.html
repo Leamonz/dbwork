@@ -2,7 +2,7 @@
      aria-labelledby="pills-timeline-tab">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Activity</h3>
+            <h3 class="card-title">预约记录</h3>
             <div class="card-options">
                 <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
                         class="fe fe-chevron-up"></i></a>
@@ -34,45 +34,27 @@
         <div class="card-body">
             <div class="timeline_item ">
                 <img class="tl_avatar" src="/static/images/xs/avatar1.jpg" alt=""/>
-                <span><a
-                        href="javascript:void(0);">Elisse Joson</a> San Francisco, CA <small
-                        class="float-right text-right">20-April-2019 - Today</small></span>
-                <h6 class="font600">Hello, 'Im a single div responsive timeline without
-                    media Queries!</h6>
+                <span>
+                    <a href="javascript:void(0);" onclick="showBuyerModal();">
+                        买家用户名
+                    </a>
+                    <small class="float-right text-right">
+                        预约日期
+                    </small>
+                </span>
                 <div class="msg">
-                    <p>I'm speaking with myself, number one, because I have a very good
-                        brain and I've said a lot of things. I write the best placeholder
-                        text, and I'm the biggest developer on the web card she has is the
-                        Lorem card.</p>
-                    <a href="javascript:void(0);" class="mr-20 text-muted"><i
-                            class="fa fa-heart text-pink"></i> 12 Love</a>
-                    <a class="text-muted" role="button" data-toggle="collapse"
-                       href="#collapseExample" aria-expanded="false"
-                       aria-controls="collapseExample"><i class="fa fa-comments"></i> 1
-                        Comment</a>
-                    <div class="collapse p-4 section-gray" id="collapseExample">
-                        <form class="well">
-                            <div class="form-group">
-                                                            <textarea rows="2" class="form-control no-resize"
-                                                                      placeholder="Enter here for tweet..."></textarea>
-                            </div>
-                            <button class="btn btn-primary">Submit</button>
-                        </form>
-                        <ul class="recent_comments list-unstyled mt-4 mb-0">
-                            <li>
-                                <div class="avatar_img">
-                                    <img class="rounded img-fluid"
-                                         src="/static/images/xs/avatar4.jpg" alt="">
-                                </div>
-                                <div class="comment_body">
-                                    <h6>Donald Gardner <small class="float-right font-14">Just
-                                        now</small></h6>
-                                    <p>Lorem ipsum Veniam aliquip culpa laboris minim
-                                        tempor</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <h6 class="font600">
+                        商品名称
+                        <a href="javascript:void(0);" class="ml-auto font-12 text-azure" onclick="showGoodsModal();">
+                            商品信息
+                        </a>
+                    </h6>
+                    <ul style="list-style: none">
+                        <li>购买数量: 件</li>
+                    </ul>
+                    <span class="mr-20 text-muted text-orange">
+                        &yen;总价
+                    </span>
                 </div>
             </div>
         </div>

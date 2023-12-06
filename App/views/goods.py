@@ -100,18 +100,13 @@ def addOne(username):
     student = Student.query.filter_by(username=username).first()
     datePrefix = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     goodID = "G" + datePrefix + student.sid[-8:]
-    try:
-        goodName = flask.request.form.get("goodname")
-        goodNumber = flask.request.form.get("goodnum")
-        goodPrice = flask.request.form.get("goodprice")
-        description = flask.request.form.get("description")
-        objImageFile = flask.request.files.get("upload_image")
-    except Exception as e:
-        print(str(e))
-        result_msg = "parse post parameters failed"
-        result_code = 5
+    goodName = flask.request.form.get("goodname")
+    goodNumber = flask.request.form.get("goodnum")
+    goodPrice = flask.request.form.get("goodprice")
+    description = flask.request.form.get("description")
+    objImageFile = flask.request.files.get("upload_image")
     suffix = os.path.splitext(objImageFile.filename)[-1]
-    imageLocalPath = os.path.join(r"D:\Program_work\dbwork\web_images", goodID + suffix)
+    imageLocalPath = os.path.join(r"D:\Program_work\dbwork\App\static\web_images", goodID + suffix)
     objImageFile.save(imageLocalPath)
     createTime = datetime.datetime.now().strftime("%Y-%m-%d")
     newGoods = Goods(goodID, goodName, goodNumber, goodPrice, username)

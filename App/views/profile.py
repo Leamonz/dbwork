@@ -19,24 +19,30 @@ def profile_page(username):
     now = datetime.datetime.now().strftime("%Y年%m月%d日")
     profile_dict['nowDate'] = now
     print(profile_dict)
-    if flask.request.method == "GET":
-        return flask.render_template("profile.html", **profile_dict)
-    elif flask.request.method == "POST":
-        result_msg = "ok"
-        result_code = 0
-        response = flask.make_response(flask.jsonify({
-            "result_msg": result_msg,
-            "result_code": result_code,
-            "student": profile_dict
-        }), 200)
-        response.content_type = "application/json"
-        response.access_control_allow_origin = "*"
-        return response
-    else:
-        return flask.make_response(flask.jsonify({
-            "result_msg": "method not accepted",
-            "result_code": 1
-        }), 415)
+    return flask.render_template("profile.html", **profile_dict)
+
+
+@profile_blueprint.route("/user_div/", methods=["POST"])
+def profile_user_div():
+    result_msg = "ok"
+    result_code = 0
+    username = flask.request.form.get("username")
+    student = Student.query.filter_by(username=username).first()
+    columns = Student.__table__.columns
+    profile_dict = {}
+    for col in columns:
+        profile_dict[col.name] = getattr(student, col.name)
+    now = datetime.datetime.now().strftime("%Y年%m月%d日")
+    profile_dict['nowDate'] = now
+    print(profile_dict)
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "student": profile_dict
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
 
 
 @profile_blueprint.route("/<string:username>/update/", methods=["GET", "POST"])

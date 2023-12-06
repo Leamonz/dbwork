@@ -1,10 +1,13 @@
 <script type="text/javascript" defer>
     function getUser() {
         var username = localStorage.getItem("username");
-        var url = "http://localhost:8888/profile/" + username + "/";
+        var url = "http://localhost:8888/profile/user_div/";
+        var data = {
+            "username": username
+        };
         $.post(
             url,
-            {},
+            data,
             (res) => {
                 console.log(res.result_msg);
                 console.log(JSON.stringify(res));
