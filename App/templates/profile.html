@@ -99,10 +99,6 @@
                            aria-controls="pills-profile" aria-selected="true">档案</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-calendar-tab" data-toggle="pill" href="#pills-calendar"
-                           role="tab" aria-controls="pills-calendar" aria-selected="false">日历</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab"
                            aria-controls="pills-timeline" aria-selected="false">预约信息</a>
                     </li>
@@ -170,7 +166,6 @@
                     <div class="col-lg-8 col-md-12">
                         <div class="tab-content" id="pills-tabContent">
                             {% include "profile_pills/pills_profile.html" %}
-                            {% include "profile_pills/pills_calendar.html" %}
                             {% include "profile_pills/pills_timeline.html" %}
                             {% include "profile_pills/pills_goods.html" %}
                             {% include "profile_pills/pills_blog.html" %}
@@ -227,8 +222,9 @@
 <script src="/static/js/core.js"></script>
 <script src="/static/assets/js/form/form-advanced.js"></script>
 
-<script src="/static/js/profile.js"></script>
-<script src="/static/js/goods.js"></script>
+<script src="/static/js/profile/profile.js"></script>
+<script src="/static/js/profile/goods.js"></script>
+<script src="/static/js/profile/reservation.js"></script>
 <script src="/static/js/utils/cookie.js"></script>
 
 {% include "frame/frame_scripts.html" %}

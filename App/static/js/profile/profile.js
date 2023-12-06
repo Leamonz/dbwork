@@ -1,3 +1,8 @@
+async function onLoadFunction() {
+    await getGoodsList();
+    await getReservationList();
+}
+
 function onUpdateButton() {
     console.log("更新档案");
     var username = $("#username").val();

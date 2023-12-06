@@ -42,6 +42,7 @@ class Goods(db.Model):
     imageurl = db.Column(db.String(255))
     description = db.Column(db.String(255))
     create_time = db.Column(db.Date())
+    db.relationship("Reservation", backref="goods", uselist=False)
 
     def __init__(self, goodID, goodName, goodNumber, goodPrice, sellerUsername):
         self.goodid = goodID

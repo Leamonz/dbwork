@@ -128,3 +128,33 @@ def confirm(username):
     response.content_type = "application/json"
     response.access_control_allow_origin = "*"
     return response
+
+
+@profile_blueprint.route("/<string:username>/reservations/", methods=["POST"])
+def get_reservations(username):
+    result_msg = "ok"
+    result_code = 0
+    # 按时间降序排列
+
+    reservations = db.session.query(Reservation,
+                                    Goods.goodname).join(Goods,
+                                                         Reservation.goodid == Goods.goodid).order_by(
+        Reservation.create_time.desc()).all()
+    columns = Reservation.__table__.columns
+    reservationList = []
+    for queryRes in reservations:
+        reservation = queryRes[0]
+        anObject = {}
+        for col in columns:
+            anObject[col.name] = getattr(reservation, col.name)
+        anObject["goodname"] = queryRes[1]
+        reservationList.append(anObject)
+    print(reservationList)
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "reservations": reservationList
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response

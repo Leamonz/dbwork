@@ -1,7 +1,3 @@
-async function onLoadFunction() {
-    await getGoodsList();
-}
-
 $('.dropify').dropify({
     messages: {
         'default': '拖拽图片到区域内或点击区域进行上传',
