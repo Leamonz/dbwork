@@ -29,6 +29,10 @@ function showReservationModal() {
     $("#reservationModal #reservationConfirmButton").click((e) => {
         var buyer = localStorage.getItem("username");
         var seller = $("#reservationModal #seller_username").val();
+        if (buyer === seller) {
+            showWarningModal("不能购买自己的商品");
+            return;
+        }
         var goodid = document.querySelector("#goods_card").dataset.id;
         var num = $("#numberOfGoods").val();
         var price = $("#totalPrice").val();

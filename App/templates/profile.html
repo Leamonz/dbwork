@@ -104,7 +104,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab"
-                           aria-controls="pills-timeline" aria-selected="false">预约记录</a>
+                           aria-controls="pills-timeline" aria-selected="false">预约信息</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-mygoods" role="tab"
@@ -207,8 +207,8 @@
     <i class="fe fe-check mr-2" aria-hidden="true"></i> <span id="alert-body"></span>
 </div>
 
-{% include "./goods_modals/deleteModal.html" %}
-{% include "./goods_modals/modifyModal.html" %}
+{% include "./modals/deleteModal.html" %}
+{% include "./modals/modifyModal.html" %}
 
 
 <!-- jQuery and bootstrtap js -->
@@ -230,5 +230,7 @@
 <script src="/static/js/profile.js"></script>
 <script src="/static/js/goods.js"></script>
 <script src="/static/js/utils/cookie.js"></script>
+
+{% include "frame/frame_scripts.html" %}
 </body>
 </html>

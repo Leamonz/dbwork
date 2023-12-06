@@ -1,13 +1,24 @@
-<!-- jQuery and bootstrtap js -->
-<script src="/static/bundles/lib.vendor.bundle.js"></script>
+<script type="text/javascript" defer>
+    function getUser() {
+        var username = localStorage.getItem("username");
+        var url = "http://localhost:8888/profile/" + username + "/";
+        $.post(
+            url,
+            {},
+            (res) => {
+                console.log(res.result_msg);
+                console.log(JSON.stringify(res));
+                if (res.result_code === 0) {
+                    var student = res.student;
+                    $("#user_div_name").html(student.username);
+                    $("#user_div_mail").html(student.mailaddress);
+                    $("#user_div_qq").html(student.qqid);
+                    $("#user_div_wechat").html(student.wechatid);
+                    $("#user_div_date").html(student.nowDate);
+                }
+            }
+        )
+    }
 
-<!-- start plugin js file  -->
-<script src="/static/bundles/apexcharts.bundle.js"></script>
-<script src="/static/bundles/counterup.bundle.js"></script>
-<script src="/static/bundles/knobjs.bundle.js"></script>
-<script src="/static/bundles/c3.bundle.js"></script>
-<script src="/static/bundles/flot.bundle.js"></script>
-<script src="/static/bundles/jvectormap1.bundle.js"></script>
-
-<!-- Start core js and page js -->
-<script src="/static/js/core.js"></script>
+    getUser();
+</script>

@@ -113,8 +113,10 @@ def addOne(username):
     suffix = os.path.splitext(objImageFile.filename)[-1]
     imageLocalPath = os.path.join(r"D:\Program_work\dbwork\web_images", goodID + suffix)
     objImageFile.save(imageLocalPath)
+    createTime = datetime.datetime.now().strftime("%Y-%m-%d")
     newGoods = Goods(goodID, goodName, goodNumber, goodPrice, username)
-    newGoods.imageurl = imageLocalPath
+    newGoods.create_time = createTime
+    newGoods.imageurl = "/static/web_images/" + goodID + suffix
     newGoods.description = description
     try:
         db.session.add(newGoods)
@@ -155,13 +157,18 @@ def deleteOne(username):
 def modify(username):
     result_msg = "ok"
     result_code = 0
-    goodid = flask.request.form.get("goodid")
-    goodname = flask.request.form.get("modify_goodname")
-    goodprice = flask.request.form.get("modify_goodprice")
-    goodnum = flask.request.form.get("modify_goodnum")
-    description = flask.request.form.get("modify_description")
-    print(goodid)
-    objImageFile = flask.request.files.get("modify_upload_image")
+    try:
+        goodid = flask.request.form.get("goodid")
+        goodname = flask.request.form.get("modify_goodname")
+        goodprice = flask.request.form.get("modify_goodprice")
+        goodnum = flask.request.form.get("modify_goodnum")
+        description = flask.request.form.get("modify_description")
+        print(goodid)
+        objImageFile = flask.request.files.get("modify_upload_image")
+    except Exception as e:
+        result_msg = "parse post parameters failed"
+        result_code = 5
+        print(str(e))
     goods = Goods.query.filter_by(goodid=goodid).first()
     if objImageFile.filename:
         objImageFile.save(goods.imageurl)

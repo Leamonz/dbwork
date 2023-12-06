@@ -11,8 +11,6 @@ profile_blueprint = Blueprint("profile", __name__, url_prefix="/profile")
 
 @profile_blueprint.route("/<string:username>/", methods=["GET", "POST"])
 def profile_page(username):
-    # username = flask.request.cookies.get("username")
-    # current_app.logger.debug(username)
     student = Student.query.filter_by(username=username).first()
     columns = Student.__table__.columns
     profile_dict = {}
@@ -21,7 +19,24 @@ def profile_page(username):
     now = datetime.datetime.now().strftime("%Y年%m月%d日")
     profile_dict['nowDate'] = now
     print(profile_dict)
-    return flask.render_template("profile.html", **profile_dict)
+    if flask.request.method == "GET":
+        return flask.render_template("profile.html", **profile_dict)
+    elif flask.request.method == "POST":
+        result_msg = "ok"
+        result_code = 0
+        response = flask.make_response(flask.jsonify({
+            "result_msg": result_msg,
+            "result_code": result_code,
+            "student": profile_dict
+        }), 200)
+        response.content_type = "application/json"
+        response.access_control_allow_origin = "*"
+        return response
+    else:
+        return flask.make_response(flask.jsonify({
+            "result_msg": "method not accepted",
+            "result_code": 1
+        }), 415)
 
 
 @profile_blueprint.route("/<string:username>/update/", methods=["GET", "POST"])

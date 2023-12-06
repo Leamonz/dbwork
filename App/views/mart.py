@@ -63,11 +63,17 @@ def getSellerById(sellerUsername):
 def makeAReservation():
     result_msg = "ok"
     result_code = 0
-    buyerUsername = flask.request.form.get("buyer")
-    sellerUsername = flask.request.form.get("seller")
-    goodid = flask.request.form.get("goodid")
-    number = flask.request.form.get("num")
-    total = flask.request.form.get("total")
+    try:
+        buyerUsername = flask.request.form.get("buyer")
+        sellerUsername = flask.request.form.get("seller")
+        goodid = flask.request.form.get("goodid")
+        number = flask.request.form.get("num")
+        total = flask.request.form.get("total")
+    except Exception as e:
+        result_msg = "parse post parameters failed"
+        result_code = 5
+        print(str(e))
+    create_time = datetime.datetime.now().strftime("%Y-%m-%d")
     goods = Goods.query.filter_by(goodid=goodid).first()
     try:
         buyer = Student.query.filter_by(username=buyerUsername).first()
@@ -79,6 +85,7 @@ def makeAReservation():
         datePrefix = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         rid = "R" + datePrefix + seller.sid[-4:] + buyer.sid[-4:]
         newReservation = Reservation(rid, buyerUsername, sellerUsername, goodid, number, total)
+        newReservation.create_time = create_time
         goods.num -= 1
         db.session.add(newReservation)
         db.session.add(goods)

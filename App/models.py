@@ -41,6 +41,7 @@ class Goods(db.Model):
     sellerusername = db.Column(db.String(20), db.ForeignKey("users.username"))
     imageurl = db.Column(db.String(255))
     description = db.Column(db.String(255))
+    create_time = db.Column(db.Date())
 
     def __init__(self, goodID, goodName, goodNumber, goodPrice, sellerUsername):
         self.goodid = goodID
@@ -58,6 +59,7 @@ class Reservation(db.Model):
     goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"))
     num = db.Column(db.Integer(), default=0)
     total = db.Column(db.Numeric(precision=15, scale=2), nullable=False)
+    create_time = db.Column(db.Date())
 
     def __init__(self, rid, buyer, seller, goodid, num, total):
         self.rid = rid
