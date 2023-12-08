@@ -52,6 +52,7 @@ def detailPage(goodid):
     result_code = 0
     try:
         goods = Goods.query.filter_by(goodid=goodid).first()
+
     except Exception as e:
         print(str(e))
         result_msg = "goods not found"

@@ -185,3 +185,40 @@ def modify(username):
     }), 200)
     response.content_type = "application/json"
     return response
+
+
+def query(search_input, column):
+    goodsList = []
+    goodsObject = Goods.query.filter(getattr(Goods, column).like(f"%{search_input}%")).all()
+    columns = Goods.__table__.columns
+    for goods in goodsObject:
+        anObject = {}
+        for col in columns:
+            anObject[col.name] = getattr(goods, col.name)
+        if anObject["goodnum"]:
+            goodsList.append(anObject)
+    return goodsList
+
+
+@goods_blueprint.route("/query/", methods=["GET", "POST"])
+def queryGoods():
+    result_msg = "ok"
+    result_code = 0
+    option = flask.request.form.get("option")
+    goodsList = []
+    if option == "name":
+        goodname = flask.request.form.get("search_input")
+        goodsList = query(goodname, "goodname")
+    elif option == "seller":
+        seller = flask.request.form.get("search_input")
+        goodsList = query(seller, "sellerusername")
+    else:
+        return flask.redirect("/goods/mart/getAll/")
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "goods": goodsList
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response

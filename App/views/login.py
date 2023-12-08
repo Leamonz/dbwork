@@ -6,8 +6,6 @@ from flask import Blueprint, current_app, g
 from flask_mail import Message
 from App.models import *
 
-# from App.utils.token import *
-
 login_blueprint = Blueprint("login", __name__, url_prefix='/login')
 
 
@@ -20,18 +18,21 @@ def login_page():
 def login():
     result_msg = "ok"
     result_code = 0
-    username = flask.request.form.get("username")
-    input_passwd = flask.request.form.get("password")
-    user = Users.query.filter_by(username=username).first()
-    if input_passwd != user.passwd:
-        result_msg = "password not match"
-        result_code = 10
+    username = flask.session.get("username")
+    if not username:
+        username = flask.request.form.get("username")
+        input_passwd = flask.request.form.get("password")
+        user = Users.query.filter_by(username=username).first()
+        if input_passwd != user.passwd:
+            result_msg = "password not match"
+            result_code = 10
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
         "result_code": result_code,
     }), 200)
     if result_code == 0:
-        response.set_cookie("username", username, max_age=3600, samesite="None")
+        # response.set_cookie("username", username, max_age=3600, samesite="None")
+        flask.session["username"] = username
     response.content_type = "application/json"
     # 解决跨域问题
     response.access_control_allow_origin = "*"
