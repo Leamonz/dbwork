@@ -48,9 +48,9 @@ function getAllGoods() {
                 html += `                <small class="d-block text-muted">剩余${goods.goodnum}件</small>`;
                 html += `            </div>`;
                 html += `            <div class="ml-auto text-muted">`;
-                html += `                <i class="fe fe-eye mr-1"></i> 99`;
+                html += `                <i class="fe fe-eye mr-1"></i> ${goods.views}`;
                 html += `                <a href="" class="icon d-none d-md-inline-block ml-3 preventJump">`;
-                html += `                    <i class="fe fe-heart mr-1"></i> 1000`;
+                html += `                    <i class="fe fe-heart mr-1"></i> ${goods.likes}`;
                 html += `                </a>`;
                 html += `            </div>`;
                 html += `        </div>`;

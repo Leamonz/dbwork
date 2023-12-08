@@ -50,9 +50,22 @@ def getGoods(goodid):
 def detailPage(goodid):
     result_msg = "ok"
     result_code = 0
+    goods = {}
     try:
-        goods = Goods.query.filter_by(goodid=goodid).first()
-
+        # goods = Goods.query.filter_by(goodid=goodid).first()
+        queryRes = db.session.query(Goods, GoodsPost.views, GoodsPost.likes).join(GoodsPost,
+                                                                                  Goods.goodid == GoodsPost.goodid).filter_by(
+            goodid=goodid).first()
+        print(queryRes)
+        goods = {}
+        for col in Goods.__table__.columns:
+            goods[col.name] = getattr(queryRes[0], col.name)
+        goods["views"] = queryRes[1] + 1
+        goods["likes"] = queryRes[2]
+        post = GoodsPost.query.filter_by(goodid=goodid).first()
+        post.views += 1
+        db.session.add(post)
+        db.session.commit()
     except Exception as e:
         print(str(e))
         result_msg = "goods not found"

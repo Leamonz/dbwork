@@ -52,12 +52,13 @@ def martGetAll():
     result_code = 0
     goodsList = []
     try:
-        goodsObject = Goods.query.all()
-        columns = Goods.__table__.columns
-        for goods in goodsObject:
+        queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).all()
+        for (goods, post) in queryRes:
             anObject = {}
-            for col in columns:
+            for col in Goods.__table__.columns:
                 anObject[col.name] = getattr(goods, col.name)
+            for col in GoodsPost.__table__.columns:
+                anObject[col.name] = getattr(post, col.name)
             if anObject["goodnum"]:
                 goodsList.append(anObject)
     except Exception as e:
@@ -113,8 +114,10 @@ def addOne(username):
     newGoods.create_time = createTime
     newGoods.imageurl = "/static/web_images/" + goodID + suffix
     newGoods.description = description
+    newPost = GoodsPost(goodID)
     try:
         db.session.add(newGoods)
+        db.session.add(newPost)
         db.session.commit()
     except Exception as e:
         print(str(e))
