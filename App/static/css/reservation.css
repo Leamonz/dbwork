@@ -1,0 +1,93 @@
+/* 设置表格的边框和间距 */
+.table_custom {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+/* 设置表格的标题栏的样式 */
+.table_custom thead th {
+    background-color: #f8f9fa;
+    border: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: #495057;
+}
+
+/* 设置表格的内容栏的样式 */
+.table_custom tbody td {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 10px 15px;
+    vertical-align: middle;
+}
+
+/* 设置表格的图片栏的样式 */
+.table_custom tbody td .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: fill;
+}
+
+/* 设置表格的操作栏的样式 */
+.table_custom tbody td .btn-link {
+    color: #495057;
+    text-decoration: none;
+}
+
+/* 设置表格的操作栏的图标的样式 */
+.table_custom tbody td .btn-link i {
+    font-size: 18px;
+}
+
+/* 设置表格的操作栏的删除按钮的样式 */
+.table_custom tbody td .btn-link .fa-trash {
+    color: #dc3545;
+}
+
+table.table_custom.list {
+    table-layout: fixed;
+}
+
+table.table_custom.list th:nth-child(1) {
+    width: 20%; /* 图片列占 20% 的宽度 */
+}
+
+table.table_custom.list th:nth-child(4),
+table.table_custom.list th:nth-child(5) {
+    width: 10%; /* 总价和购买数量列各占 10% 的宽度 */
+}
+
+table.table_custom.list th:nth-child(6) {
+    width: 10%; /* 操作列占 10% 的宽度 */
+}
+
+table.table_custom.list td:nth-child(1) {
+    text-align: center;
+}
+
+table.table_custom.list td:nth-child(1) .avatar {
+    display: block;
+    margin: auto;
+}
+
+/*调整图片的大小 */
+table.table_custom.list .avatar {
+    border-radius: 10px;
+    width: 90px;
+    height: 90px;
+    object-fit: fill; /* 不保持图片的比例 */
+}
+
+.table_custom.list tbody tr {
+    height: auto; /* 调整每一行的高度 */
+}
+
+.table_custom.list tbody tr td {
+    vertical-align: middle;
+}
+
+.table_custom tbody tr td.text-center.width45 img.avatar {
+    width: 100%;
+    height: 100%;
+}

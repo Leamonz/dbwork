@@ -7,19 +7,12 @@ from App.models import *
 
 mart_blueprint = Blueprint("mart",
                            __name__,
-                           url_prefix="/mart",
-                           static_url_path="/goods_images",
-                           static_folder=r"D:\Program_work\dbwork\web_images")
+                           url_prefix="/mart")
 
 
 @mart_blueprint.route("/")
 def mart_index():
     return flask.render_template("mart.html")
-
-
-@mart_blueprint.route("/test/")
-def test():
-    return flask.render_template("goods_detail.html")
 
 
 @mart_blueprint.route("/<string:goodid>/", methods=["POST"])

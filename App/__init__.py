@@ -7,6 +7,7 @@ from App.views.index import index_blueprint
 from App.views.profile import profile_blueprint
 from App.views.goods import goods_blueprint
 from App.views.mart import mart_blueprint
+from App.views.reservation import reservation_blueprint
 from App.models import db
 
 
@@ -23,6 +24,7 @@ def create_app():
     app.register_blueprint(profile_blueprint)
     app.register_blueprint(goods_blueprint)
     app.register_blueprint(mart_blueprint)
+    app.register_blueprint(reservation_blueprint)
     # app绑定session
     mail = Mail(app)
     db.init_app(app)

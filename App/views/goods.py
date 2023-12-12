@@ -17,6 +17,8 @@ goods_blueprint = Blueprint("goods",
                             __name__,
                             url_prefix="/goods")
 
+IMAGE_DIR = "D:\Program_work\dbwork\App"
+
 
 @goods_blueprint.route("/<string:username>/getAll/", methods=["GET", "POST"])
 def getAll(username):
@@ -148,10 +150,21 @@ def deleteOne(username):
     result_code = 0
     goodid = flask.request.form.get("goodid")
     print(goodid)
+    # goods_post = GoodsPost.query.filter_by(goodid=goodid).all()
+    # goods_like = GoodsLike.query.filter_by(goodid=goodid).all()
+    # reservations = Reservation.query.filter_by(goodid=goodid).all()
     goods = Goods.query.filter_by(goodid=goodid).first()
-    os.remove(goods.imageurl)
+    # for post in goods_post:
+    #     db.session.delete(post)
+    # for like in goods_like:
+    #     db.session.delete(like)
+    # for reservation in reservations:
+    #     db.session.delete(reservation)
     db.session.delete(goods)
     db.session.commit()
+    imageLocalPath = IMAGE_DIR + goods.imageurl
+    print(imageLocalPath)
+    os.remove(imageLocalPath)
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
         "result_code": result_code

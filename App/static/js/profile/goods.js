@@ -49,18 +49,19 @@ async function getGoodsList() {
         $("#all_goods").html(html);
     })
     $.ajaxSettings.async = true;
-    initButtons();
+    initGoodsButtons();
 }
 
-function initButtons() {
+function initGoodsButtons() {
     var delete_goods_buttons = document.getElementsByClassName("delete_goods_button");
+    console.log(delete_goods_buttons);
     for (var i = 0; i < delete_goods_buttons.length; i++) {
         var button = delete_goods_buttons[i];
         button.addEventListener("click", (e) => {
             var goodid = e.currentTarget.parentNode.nextElementSibling.value;
             console.log(goodid);
             var username = getUsername();
-            showDeleteModal(goodid, username);
+            showGoodsDeleteModal(goodid, username);
         })
     }
 
@@ -71,12 +72,12 @@ function initButtons() {
             var goodid = e.currentTarget.parentNode.nextElementSibling.value;
             console.log(goodid);
             var username = getUsername();
-            showModifyModal(goodid, username);
+            showGoodsModifyModal(goodid, username);
         })
     }
 }
 
-function showDeleteModal(goodid, username) {
+function showGoodsDeleteModal(goodid, username) {
     document.querySelector("#deleteModal #deleteConfirmButton").onclick = (e) => {
         var url = "http://localhost:8888/goods/" + username + "/delete/";
         var data = {
@@ -97,7 +98,7 @@ function showDeleteModal(goodid, username) {
     $("#deleteModal").modal("show");
 }
 
-function showModifyModal(goodid, username) {
+function showGoodsModifyModal(goodid, username) {
     $.post(
         "http://localhost:8888/goods/" + username + "/getOne/",
         {"goodid": goodid},
