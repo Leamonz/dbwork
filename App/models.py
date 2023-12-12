@@ -7,7 +7,7 @@ class Users(db.Model):
     __table_name__ = "users"
     username = db.Column(db.String(20), primary_key=True)
     passwd = db.Column(db.String(20), nullable=False)
-    student = db.relationship("Student", backref="account", uselist=False)
+    student = db.relationship("Student", backref="account", uselist=False, cascade="all, delete-orphan")
     goods = db.relationship("Goods", backref="seller", uselist=True)
     like = db.relationship("GoodsLike", backref="user", uselist=True)
 
@@ -43,9 +43,9 @@ class Goods(db.Model):
     imageurl = db.Column(db.String(255))
     description = db.Column(db.String(255))
     create_time = db.Column(db.Date())
-    reservation = db.relationship("Reservation", backref="goods", uselist=True)
-    posts = db.relationship("GoodsPost", backref="goods", uselist=False)
-    userLikeList = db.relationship("GoodsLike", backref="goods", uselist=True)
+    reservation = db.relationship("Reservation", backref="goods", uselist=True, cascade="all, delete-orphan")
+    posts = db.relationship("GoodsPost", backref="goods", uselist=False, cascade="all, delete-orphan")
+    userLikeList = db.relationship("GoodsLike", backref="goods", uselist=True, cascade="all, delete-orphan")
 
     def __init__(self, goodID, goodName, goodNumber, goodPrice, sellerUsername):
         self.goodid = goodID
@@ -76,7 +76,8 @@ class Reservation(db.Model):
 
 class GoodsPost(db.Model):
     __table_name__ = "goods_post"
-    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"), primary_key=True)
+    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"),
+                       primary_key=True)
     views = db.Column(db.Integer(), default=0)
     likes = db.Column(db.Integer(), default=0)
 
@@ -86,8 +87,10 @@ class GoodsPost(db.Model):
 
 class GoodsLike(db.Model):
     __table_name__ = "goods_like"
-    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"), primary_key=True)
-    username = db.Column(db.String(255), db.ForeignKey("users.username"), primary_key=True)
+    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"),
+                       primary_key=True)
+    username = db.Column(db.String(255), db.ForeignKey("users.username"),
+                         primary_key=True)
 
     def __init__(self, goodid, username):
         self.goodid = goodid
