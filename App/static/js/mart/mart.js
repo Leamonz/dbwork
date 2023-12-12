@@ -12,7 +12,9 @@ function onLoadFunction() {
 
 function getAllGoods() {
     var url = "http://localhost:8888/goods/mart/getAll";
-    var data = {};
+    var data = {
+        "order_by": document.querySelector("#order_select").value
+    };
     $.ajax({
         url: url,
         method: "post",
@@ -49,9 +51,6 @@ function getAllGoods() {
                 html += `            </div>`;
                 html += `            <div class="ml-auto text-muted">`;
                 html += `                <i class="fe fe-eye mr-1"></i> ${goods.views}`;
-                html += `                <a href="" class="icon d-none d-md-inline-block ml-3 preventJump">`;
-                html += `                    <i class="fe fe-heart mr-1"></i> ${goods.likes}`;
-                html += `                </a>`;
                 html += `            </div>`;
                 html += `        </div>`;
                 html += `    </div>`;
@@ -125,3 +124,7 @@ $("#query_button").click((e) => {
     )
 })
 
+document.querySelector("#order_select").addEventListener("change", (e) => {
+    console.log(e.target.value);
+    getAllGoods();
+})

@@ -24,12 +24,14 @@ def getAll(username):
     result_code = 0
     goodsList = []
     try:
-        goodsObject = Goods.query.filter_by(sellerusername=username).all()
-        columns = Goods.__table__.columns
-        for goods in goodsObject:
+        queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).filter(
+            Goods.sellerusername == username).all()
+        for (goods, post) in queryRes:
             anObject = {}
-            for col in columns:
+            for col in Goods.__table__.columns:
                 anObject[col.name] = getattr(goods, col.name)
+            for col in GoodsPost.__table__.columns:
+                anObject[col.name] = getattr(post, col.name)
             goodsList.append(anObject)
     except Exception as e:
         print(str(e))
@@ -52,7 +54,15 @@ def martGetAll():
     result_code = 0
     goodsList = []
     try:
-        queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).all()
+        order_by = flask.request.form.get("order_by")
+        if order_by == "time":
+            queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).order_by(
+                Goods.create_time.desc()).all()
+        elif order_by == "views":
+            queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).order_by(
+                GoodsPost.views.desc()).all()
+        else:
+            queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).all()
         for (goods, post) in queryRes:
             anObject = {}
             for col in Goods.__table__.columns:

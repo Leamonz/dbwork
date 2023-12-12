@@ -31,8 +31,8 @@ async function getGoodsList() {
             html += `    <h6>&yen;${goods.goodprice}&nbsp;剩余${goods.goodnum}件</h6>`;
             html += `    <p>${description}</p>`
             html += `    <div class="footer">`;
-            html += `        <span><i class="fe fe-heart"></i>&nbsp;90</span> &nbsp;`;
-            html += `        <span><i class="fe fe-eye"></i>&nbsp;1000</span>`;
+            html += `        <span><i class="fe fe-eye"></i>&nbsp;${goods.views}</span>&nbsp;`;
+            html += `        <span><i class="fe fe-heart"></i>&nbsp;${goods.likes}</span>`;
             html += `        <div class="float-right inlineblock">`;
             html += `            <button class="btn btn-primary modify_goods_button">`;
             html += `                修改商品信息`;
