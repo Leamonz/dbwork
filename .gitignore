@@ -163,3 +163,4 @@ web.config
 /aspnet_client
 /App/static/web_images/
 /App/config.py
+/flask_session

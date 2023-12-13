@@ -76,8 +76,7 @@ class Reservation(db.Model):
 
 class GoodsPost(db.Model):
     __table_name__ = "goods_post"
-    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"),
-                       primary_key=True)
+    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"), primary_key=True)
     views = db.Column(db.Integer(), default=0)
     likes = db.Column(db.Integer(), default=0)
 
