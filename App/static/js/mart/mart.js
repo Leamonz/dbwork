@@ -43,14 +43,14 @@ function getAllGoods() {
                 html += `                </div>`;
                 html += `            </div>`;
                 html += `        </h5>`;
-                html += `        <h6 class="text-muted">${goods.description}</h6>`;
+                html += `        <p class="text-muted">${goods.description}</p>`;
                 html += `        <div class="d-flex align-items-center pt-5 mt-auto">`;
                 html += `            <div>`;
                 html += `                <span class="text-orange font-20">&yen;${goods.goodprice}</span>`;
                 html += `                <small class="d-block text-muted">剩余${goods.goodnum}件</small>`;
                 html += `            </div>`;
                 html += `            <div class="ml-auto text-muted">`;
-                html += `                <i class="fe fe-eye mr-1"></i> ${goods.views}`;
+                html += `                <i class="fa fa-eye mr-1"></i> ${goods.views}`;
                 html += `            </div>`;
                 html += `        </div>`;
                 html += `    </div>`;
@@ -109,10 +109,7 @@ $("#query_button").click((e) => {
                     html += `                <small class="d-block text-muted">剩余${goods.goodnum}件</small>`;
                     html += `            </div>`;
                     html += `            <div class="ml-auto text-muted">`;
-                    html += `                <i class="fe fe-eye mr-1"></i> 99`;
-                    html += `                <a href="" class="icon d-none d-md-inline-block ml-3 preventJump">`;
-                    html += `                    <i class="fe fe-heart mr-1"></i> 1000`;
-                    html += `                </a>`;
+                    html += `                <i class="fa fe-eye mr-1"></i> ${goods.views}`;
                     html += `            </div>`;
                     html += `        </div>`;
                     html += `    </div>`;

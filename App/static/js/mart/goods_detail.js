@@ -72,3 +72,38 @@ document.querySelector("#numberOfGoods").oninput = (e) => {
         $("#totalPrice").val(totalPrice);
     }
 }
+
+$("i#like_button").click((e) => {
+    var value = e.target.dataset.status;
+    var likes = Number(e.target.nextElementSibling.innerText);
+    var goodid = e.target.dataset.id;
+    if (value === "like") {
+        e.target.dataset.status = "unlike";
+        e.target.classList.remove("fa-heart");
+        e.target.classList.add("fa-heart-o");
+        e.target.style.color = "black";
+        likes -= 1;
+    } else {
+        e.target.dataset.status = "like";
+        e.target.classList.remove("fa-heart-o");
+        e.target.classList.add("fa-heart");
+        e.target.style.color = "tomato";
+        likes += 1;
+    }
+    var url = "http://localhost:8888/goods/likes/update/";
+    var data = {
+        "goodid": goodid,
+        "username": localStorage.getItem("username"),
+        "likes": likes
+    };
+    $.ajaxSettings.async = false;
+    $.post(
+        url,
+        data,
+        (res) => {
+            console.log(res.result_msg);
+        }
+    )
+    $.ajaxSettings.async = true;
+    e.target.nextElementSibling.innerText = likes;
+})

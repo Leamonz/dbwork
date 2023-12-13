@@ -149,17 +149,7 @@ def deleteOne(username):
     result_msg = "ok"
     result_code = 0
     goodid = flask.request.form.get("goodid")
-    print(goodid)
-    # goods_post = GoodsPost.query.filter_by(goodid=goodid).all()
-    # goods_like = GoodsLike.query.filter_by(goodid=goodid).all()
-    # reservations = Reservation.query.filter_by(goodid=goodid).all()
     goods = Goods.query.filter_by(goodid=goodid).first()
-    # for post in goods_post:
-    #     db.session.delete(post)
-    # for like in goods_like:
-    #     db.session.delete(like)
-    # for reservation in reservations:
-    #     db.session.delete(reservation)
     db.session.delete(goods)
     db.session.commit()
     imageLocalPath = IMAGE_DIR + goods.imageurl
@@ -244,6 +234,73 @@ def queryGoods():
         "result_msg": result_msg,
         "result_code": result_code,
         "goods": goodsList
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
+
+
+@goods_blueprint.route("/likes/update/", methods=["POST"])
+def updateLikes():
+    result_msg = "ok"
+    result_code = 0
+    goodid = flask.request.form.get("goodid")
+    username = flask.request.form.get("username")
+    likes = flask.request.form.get("likes")
+    try:
+        likeRecord = GoodsLike.query.filter_by(goodid=goodid, username=username).first()
+        if likeRecord:
+            db.session.delete(likeRecord)
+        else:
+            create_time = datetime.datetime.now().strftime("%Y-%m-%d")
+            newLike = GoodsLike(goodid=goodid, username=username, create_time=create_time)
+            db.session.add(newLike)
+        GoodsPost.query.filter_by(goodid=goodid).update({
+            "likes": likes
+        })
+        db.session.commit()
+    except Exception as e:
+        print(str(e))
+        result_msg = "database internal error"
+        result_code = 6
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code
+    }), 200)
+    response.content_type = "application/json"
+    response.access_control_allow_origin = "*"
+    return response
+
+
+@goods_blueprint.route("/favourite/")
+def favouritesPage():
+    return flask.render_template("my_favourites.html")
+
+
+@goods_blueprint.route("/favourites/query/", methods=["POST"])
+def queryFavourites():
+    result_msg = "ok"
+    result_code = 0
+    username = flask.request.form.get("username")
+    favouritesList = []
+    try:
+        queryRes = db.session.query(GoodsLike, Goods).join(Goods, GoodsLike.goodid == Goods.goodid).filter(
+            GoodsLike.username == username).order_by(
+            GoodsLike.create_time.desc()).all()
+        for (like, goods) in queryRes:
+            anObject = {}
+            for col in Goods.__table__.columns:
+                anObject[col.name] = getattr(goods, col.name)
+            anObject["username"] = username
+            favouritesList.append(anObject)
+    except Exception as e:
+        print(str(e))
+        result_msg = f"favourites history not found for user: {username}"
+        result_code = 31
+    response = flask.make_response(flask.jsonify({
+        "result_msg": result_msg,
+        "result_code": result_code,
+        "favourites": favouritesList
     }), 200)
     response.content_type = "application/json"
     response.access_control_allow_origin = "*"

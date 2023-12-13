@@ -73,7 +73,7 @@
             <div class="container-fluid">
                 <div class="page-header">
                     <div class="left">
-                        <h1 class="page-title">商场</h1>
+                        <h1 class="page-title">我的收藏</h1>
                     </div>
                     <div class="right">
                         <div class="notification d-flex">
@@ -92,42 +92,35 @@
         </div>
         <div class="section-body mt-3">
             <div class="container-fluid">
-                <div class="row row-cards">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <a href="" id="new_post_button" class="btn btn-primary mr-2">发布商品</a>
-                                <div class="page-options d-flex">
-                                    <select class="form-control custom-select w-auto mr-2" id="order_select">
-                                        <option value="null">默认排序</option>
-                                        <option value="time">最新</option>
-                                        <option value="views">最多人逛</option>
-                                    </select>
-                                    <select class="form-control custom-select w-auto" id="query_select">
-                                        <option value="name">按品名查询</option>
-                                        <option value="seller">按商家查询</option>
-                                    </select>
-                                    <div class="input-icon ml-2">
-                                        <span class="input-icon-addon">
-                                            <i class="fe fe-search"></i>
-                                        </span>
-                                        <input type="text" class="form-control" placeholder="Search Mart"
-                                               id="search_input"
-                                               name="search_input">
-                                    </div>
-                                    <button type="button" class="btn btn-primary ml-2"
-                                            id="query_button"
-                                            name="query_button">
-                                        查询
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card-columns" id="mart_goods">
+                        <div class="card-columns" id="favourites_list">
+                            {#                            <div class="card">#}
+                            {#                                <a href="http://localhost:8888/mart/G2023121310003241460098/page/">#}
+                            {#                                    <img class="card-img-top preview"#}
+                            {#                                         src="/static/web_images/G2023121310003241460098.jpg"#}
+                            {#                                         alt="">#}
+                            {#                                </a>#}
+                            {#                                <div class="card-body d-flex flex-column">#}
+                            {#                                    <h5 class="flex-row align-items-center">#}
+                            {#                                        <div class="inlineblock">${goodname}&nbsp;<small#}
+                            {#                                                class="font-8">${create_time}</small></div>#}
+                            {#                                        <div class="float-right inlineblock ml-auto font-14 d-flex align-items-center">#}
+                            {#                                            <img class="avatar avatar-md mr-3" src="/static/images/xs/avatar4.jpg">#}
+                            {#                                            <div>${sellerusername}</div>#}
+                            {#                                        </div>#}
+                            {#                                    </h5>#}
+                            {#                                    <p class="text-muted">${description}</p>#}
+                            {#                                    <div class="d-flex align-items-center pt-5 mt-auto">#}
+                            {#                                        <div><span class="text-orange font-20">&yen;${goodprice}</span> <small#}
+                            {#                                                class="d-block text-muted">剩余${goodnum}件</small></div>#}
+                            {#                                        <div class="ml-auto text-muted">#}
+                            {#                                            <i class="fa fa-eye mr-1"></i> ${views}#}
+                            {#                                            <i class="fa fa-heart text-red mr-1"></i>#}
+                            {#                                        </div>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                         </div>
                     </div>
                 </div>
@@ -135,25 +128,7 @@
         </div>
 
         <!-- Start page footer -->
-        <div class="section-body">
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            Copyright © 2019 <a href="https://www.php.cn/">PuffinTheme</a>.
-                        </div>
-                        <div class="col-md-6 col-sm-12 text-md-right">
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item"><a href="">Portfolio</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)">FAQ</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)"
-                                                                class="btn btn-outline-primary btn-sm">Buy Now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        {% include "frame/frame_footer.html" %}
     </div>
 </div>
 
@@ -164,12 +139,7 @@
 
 <!-- Start core js and page js -->
 <script src="/static/js/core.js"></script>
-
-<script src="/static/js/mart/mart.js"></script>
-
-<script type="text/javascript">
-    document.querySelector("#new_post_button").href = "/profile/" + localStorage.getItem("username") + "/";
-</script>
+<script src="/static/js/favourites/favourite.js"></script>
 {% include "modals/warningModal.html" %}
 </body>
 </html>

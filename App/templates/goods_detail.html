@@ -116,11 +116,11 @@
                                 {{ goods.sellerusername }}
                             </a>
                         </div>
-                        <div class="ml-auto text-red">
-                            <i class="fe fe-eye mr-1"></i> {{ goods.views }}
-                            <a href="#" class="icon d-none d-md-inline-block ml-3">
-                                <i class="fe fe-heart mr-1"></i> {{ goods.likes }}
-                            </a>
+                        <div class="ml-auto">
+                            <i class="fa fa-eye mr-1"></i> <span>{{ goods.views }}</span>
+                            <i class="fa fa-heart-o mr-1 ml-2" id="like_button"
+                               data-id="{{ goods.goodid }}"
+                               data-status="unlike"></i> <span>{{ goods.likes }}</span>
                         </div>
                     </div>
                 </div>

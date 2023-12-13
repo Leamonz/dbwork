@@ -90,7 +90,9 @@ class GoodsLike(db.Model):
                        primary_key=True)
     username = db.Column(db.String(255), db.ForeignKey("users.username"),
                          primary_key=True)
+    create_time = db.Column(db.Date())
 
-    def __init__(self, goodid, username):
+    def __init__(self, goodid, username, create_time):
         self.goodid = goodid
         self.username = username
+        self.create_time = create_time
