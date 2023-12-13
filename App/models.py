@@ -64,6 +64,7 @@ class Reservation(db.Model):
     num = db.Column(db.Integer(), default=0)
     total = db.Column(db.Numeric(precision=15, scale=2), nullable=False)
     create_time = db.Column(db.Date())
+    status = db.Column(db.Integer(), default=0)
 
     def __init__(self, rid, buyer, seller, goodid, num, total):
         self.rid = rid

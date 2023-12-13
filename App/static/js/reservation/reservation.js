@@ -38,6 +38,13 @@ function getBuyerReservations() {
                     html += `    &yen;${reservation.total}`;
                     html += `</td>`;
                     html += `<td>`;
+                    if (reservation.status === 0) {
+                        html += `<span class="badge badge-warning"><i class="fe fe-x-circle mr-1"></i>订单未完成</span>`;
+                    } else {
+                        html += `<span class="badge badge-success"><i class="fe fe-check-circle mr-1"></i>订单已完成</span>`;
+                    }
+                    html += `</td>`;
+                    html += `<td>`;
                     html += `    <a class="btn btn-sm btn-link hidden-xs"`;
                     html += `       data-type="confirm" href="javascript:void(0)" data-toggle="tooltip"`;
                     html += `       title="取消预约商品"><i class="fa fa-trash delete" data-id="${reservation.rid}"></i></a>`;
@@ -143,5 +150,6 @@ function showReservationDeleteModal(rid) {
             }
         )
     })
+    $("#deleteModal div.modal-body").html("是否确认删除预约记录？");
     $("#deleteModal").modal("show");
 }

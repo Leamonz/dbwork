@@ -148,7 +148,8 @@ def get_reservations(username):
         for col in columns:
             anObject[col.name] = getattr(reservation, col.name)
         anObject["goodname"] = queryRes[1]
-        reservationList.append(anObject)
+        if anObject["status"] == 0:
+            reservationList.append(anObject)
     print(reservationList)
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,

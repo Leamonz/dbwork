@@ -120,8 +120,9 @@ def confirmATransaction():
     result_code = 0
     rid = flask.request.form.get("rid")
     try:
-        reservation = Reservation.query.filter_by(rid=rid).first()
-        db.session.delete(reservation)
+        Reservation.query.filter_by(rid=rid).update({
+            "status": 1
+        })
         db.session.commit()
     except Exception as e:
         print(str(e))

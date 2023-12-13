@@ -29,7 +29,7 @@ function getAllGoods() {
                 var aUrl = "http://localhost:8888/mart/" + goods.goodid + "/page/";
                 var create_time = new Date(goods.create_time);
                 create_time = create_time.toDateString();
-                html += `<div class="card">`;
+                html += `<div class="card card-style">`;
                 html += `    <a href="${aUrl}">`;
                 html += `        <img class="card-img-top preview" src="${goods.imageurl}" alt="">`;
                 html += `    </a>`;
@@ -109,7 +109,7 @@ $("#query_button").click((e) => {
                     html += `                <small class="d-block text-muted">剩余${goods.goodnum}件</small>`;
                     html += `            </div>`;
                     html += `            <div class="ml-auto text-muted">`;
-                    html += `                <i class="fa fe-eye mr-1"></i> ${goods.views}`;
+                    html += `                <i class="fa fa-eye mr-1"></i> ${goods.views}`;
                     html += `            </div>`;
                     html += `        </div>`;
                     html += `    </div>`;
