@@ -5,7 +5,8 @@ async function onLoadFunction() {
 
 function onUpdateButton() {
     console.log("更新档案");
-    var username = $("#username").val();
+    var username = localStorage.getItem("username");
+    console.log(username);
     var data = {
         "sid": $("#sid").val(),
         "sname": $("#sname").val(),
@@ -15,7 +16,7 @@ function onUpdateButton() {
         "qqid": $("#qqid").val(),
         "wechatid": $("#wechatid").val()
     };
-    var url = "http://localhost:8888/profile/update/";
+    var url = "http://localhost:8888/profile/" + username + "/update/";
     $.post(url, data, (res) => {
         console.log(res.result_msg);
         window.location.reload();

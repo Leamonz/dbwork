@@ -26,6 +26,7 @@ function getAllGoods() {
             var html = "";
             for (var i = 0; i < goodsList.length; i++) {
                 var goods = goodsList[i];
+                console.log(localStorage.getItem("username"))
                 var aUrl = "http://localhost:8888/mart/" + goods.goodid + "/page/";
                 var create_time = new Date(goods.create_time);
                 create_time = create_time.toDateString();

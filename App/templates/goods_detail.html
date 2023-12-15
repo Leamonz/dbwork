@@ -17,6 +17,7 @@
     <!-- Core css -->
     <link rel="stylesheet" href="/static/css/main.css"/>
     <link rel="stylesheet" href="/static/css/theme4.css" id="stylesheet"/>
+    <link rel="stylesheet" href="/static/css/goods_detail.css">
 </head>
 
 <body class="font-opensans">
@@ -93,7 +94,7 @@
                 <h3 class="card-title">商品信息</h3>
             </div>
             <div class="card card-aside">
-                <img src="{{ goods.imageurl }}" alt="" class="card-aside-column">
+                <img src="{{ goods.imageurl }}" alt="{{ goods.goodname }}" class="card-aside-column goods_image">
                 <div class="card-body d-flex flex-column">
                     <h4>
                         {{ goods.goodname }}
@@ -118,9 +119,17 @@
                         </div>
                         <div class="ml-auto">
                             <i class="fa fa-eye mr-1"></i> <span>{{ goods.views }}</span>
-                            <i class="fa fa-heart-o mr-1 ml-2" id="like_button"
-                               data-id="{{ goods.goodid }}"
-                               data-status="unlike"></i> <span>{{ goods.likes }}</span>
+                            {% if goods.like %}
+                                <i class="fa fa-heart mr-1 ml-2" id="like_button"
+                                   style="color: tomato;"
+                                   data-id="{{ goods.goodid }}"
+                                   data-status="unlike"></i> <span>{{ goods.likes }}</span>
+                            {% else %}
+                                <i class="fa fa-heart-o mr-1 ml-2" id="like_button"
+                                   style="color: black;"
+                                   data-id="{{ goods.goodid }}"
+                                   data-status="unlike"></i> <span>{{ goods.likes }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -49,6 +49,7 @@ function showReservationModal() {
             data,
             (res) => {
                 console.log(res.result_msg);
+                window.location.href = "http://localhost:8888/mart/";
             }
         )
     })

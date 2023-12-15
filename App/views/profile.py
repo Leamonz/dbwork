@@ -134,11 +134,12 @@ def confirm(username):
 def get_reservations(username):
     result_msg = "ok"
     result_code = 0
-    # 按时间降序排列
 
-    reservations = db.session.query(Reservation,
-                                    Goods.goodname).join(Goods,
-                                                         Reservation.goodid == Goods.goodid).order_by(
+    # 按时间降序排列
+    reservations = db.session.query(
+        Reservation, Goods.goodname).join(
+        Goods, Reservation.goodid == Goods.goodid).filter(
+        Reservation.sellerusername == username).order_by(
         Reservation.create_time.desc()).all()
     columns = Reservation.__table__.columns
     reservationList = []

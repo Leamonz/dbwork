@@ -205,12 +205,17 @@ def modify(username):
 
 def query(search_input, column):
     goodsList = []
-    goodsObject = Goods.query.filter(getattr(Goods, column).like(f"%{search_input}%")).all()
-    columns = Goods.__table__.columns
-    for goods in goodsObject:
+    # goodsObject = Goods.query.filter(getattr(Goods, column).like(f"%{search_input}%")).all()
+    queryRes = db.session.query(
+        Goods, GoodsPost).join(
+        GoodsPost, Goods.goodid == GoodsPost.goodid).filter(
+        getattr(Goods, column).like(f"%{search_input}%")).all()
+    for (goods, post) in queryRes:
         anObject = {}
-        for col in columns:
+        for col in Goods.__table__.columns:
             anObject[col.name] = getattr(goods, col.name)
+        for col in GoodsPost.__table__.columns:
+            anObject[col.name] = getattr(post, col.name)
         if anObject["goodnum"]:
             goodsList.append(anObject)
     return goodsList

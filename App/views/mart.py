@@ -45,12 +45,12 @@ def detailPage(goodid):
     result_code = 0
     goods = {}
     try:
-        # goods = Goods.query.filter_by(goodid=goodid).first()
+        visit_user = flask.session.get("username")
+        print(visit_user)
         queryRes = db.session.query(Goods, GoodsPost.views, GoodsPost.likes).join(GoodsPost,
                                                                                   Goods.goodid == GoodsPost.goodid).filter_by(
             goodid=goodid).first()
         print(queryRes)
-        goods = {}
         for col in Goods.__table__.columns:
             goods[col.name] = getattr(queryRes[0], col.name)
         goods["views"] = queryRes[1] + 1
@@ -59,6 +59,10 @@ def detailPage(goodid):
         post.views += 1
         db.session.add(post)
         db.session.commit()
+        like = GoodsLike.query.filter_by(goodid=goodid, username=visit_user).first()
+        print(like)
+        goods["like"] = like is not None
+        print(goods["like"])
     except Exception as e:
         print(str(e))
         result_msg = "goods not found"
@@ -93,7 +97,7 @@ def makeAReservation():
         rid = "R" + datePrefix + seller.sid[-4:] + buyer.sid[-4:]
         newReservation = Reservation(rid, buyerUsername, sellerUsername, goodid, number, total)
         newReservation.create_time = create_time
-        goods.num -= 1
+        goods.goodnum -= 1
         db.session.add(newReservation)
         db.session.add(goods)
         db.session.commit()
