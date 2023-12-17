@@ -43,9 +43,10 @@ class Goods(db.Model):
     imageurl = db.Column(db.String(255))
     description = db.Column(db.String(255))
     create_time = db.Column(db.Date())
+    views = db.Column(db.Integer(), default=0)
+    likes = db.Column(db.Integer(), default=0)
     reservation = db.relationship("Reservation", backref="goods", uselist=True, cascade="all, delete-orphan")
-    posts = db.relationship("GoodsPost", backref="goods", uselist=False, cascade="all, delete-orphan")
-    userLikeList = db.relationship("GoodsLike", backref="goods", uselist=True, cascade="all, delete-orphan")
+    userLikeList = db.relationship("Favourite", backref="goods", uselist=True, cascade="all, delete-orphan")
 
     def __init__(self, goodID, goodName, goodNumber, goodPrice, sellerUsername):
         self.goodid = goodID
@@ -59,34 +60,22 @@ class Reservation(db.Model):
     __table_name__ = "reservation"
     rid = db.Column(db.String(255), primary_key=True)
     buyerusername = db.Column(db.String(20), db.ForeignKey("users.username"))
-    sellerusername = db.Column(db.String(20), db.ForeignKey("users.username"))
     goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"))
     num = db.Column(db.Integer(), default=0)
     total = db.Column(db.Numeric(precision=15, scale=2), nullable=False)
     create_time = db.Column(db.Date())
     status = db.Column(db.Integer(), default=0)
 
-    def __init__(self, rid, buyer, seller, goodid, num, total):
+    def __init__(self, rid, buyer, goodid, num, total):
         self.rid = rid
         self.buyerusername = buyer
-        self.sellerusername = seller
         self.goodid = goodid
         self.num = num
         self.total = total
 
 
-class GoodsPost(db.Model):
-    __table_name__ = "goods_post"
-    goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"), primary_key=True)
-    views = db.Column(db.Integer(), default=0)
-    likes = db.Column(db.Integer(), default=0)
-
-    def __init__(self, goodid):
-        self.goodid = goodid
-
-
-class GoodsLike(db.Model):
-    __table_name__ = "goods_like"
+class Favourite(db.Model):
+    __table_name__ = "favourite"
     goodid = db.Column(db.String(255), db.ForeignKey("goods.goodid"),
                        primary_key=True)
     username = db.Column(db.String(255), db.ForeignKey("users.username"),

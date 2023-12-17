@@ -26,14 +26,12 @@ def getAll(username):
     result_code = 0
     goodsList = []
     try:
-        queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).filter(
+        queryRes = db.session.query(Goods).filter(
             Goods.sellerusername == username).all()
-        for (goods, post) in queryRes:
+        for goods in queryRes:
             anObject = {}
             for col in Goods.__table__.columns:
                 anObject[col.name] = getattr(goods, col.name)
-            for col in GoodsPost.__table__.columns:
-                anObject[col.name] = getattr(post, col.name)
             goodsList.append(anObject)
     except Exception as e:
         print(str(e))
@@ -58,19 +56,17 @@ def martGetAll():
     try:
         order_by = flask.request.form.get("order_by")
         if order_by == "time":
-            queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).order_by(
+            queryRes = db.session.query(Goods).order_by(
                 Goods.create_time.desc()).all()
         elif order_by == "views":
-            queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).order_by(
-                GoodsPost.views.desc()).all()
+            queryRes = db.session.query(Goods).order_by(
+                Goods.views.desc()).all()
         else:
-            queryRes = db.session.query(Goods, GoodsPost).join(GoodsPost, Goods.goodid == GoodsPost.goodid).all()
-        for (goods, post) in queryRes:
+            queryRes = db.session.query(Goods).all()
+        for goods in queryRes:
             anObject = {}
             for col in Goods.__table__.columns:
                 anObject[col.name] = getattr(goods, col.name)
-            for col in GoodsPost.__table__.columns:
-                anObject[col.name] = getattr(post, col.name)
             if anObject["goodnum"]:
                 goodsList.append(anObject)
     except Exception as e:
@@ -126,10 +122,8 @@ def addOne(username):
     newGoods.create_time = createTime
     newGoods.imageurl = "/static/web_images/" + goodID + suffix
     newGoods.description = description
-    newPost = GoodsPost(goodID)
     try:
         db.session.add(newGoods)
-        db.session.add(newPost)
         db.session.commit()
     except Exception as e:
         print(str(e))
@@ -207,15 +201,12 @@ def query(search_input, column):
     goodsList = []
     # goodsObject = Goods.query.filter(getattr(Goods, column).like(f"%{search_input}%")).all()
     queryRes = db.session.query(
-        Goods, GoodsPost).join(
-        GoodsPost, Goods.goodid == GoodsPost.goodid).filter(
+        Goods).filter(
         getattr(Goods, column).like(f"%{search_input}%")).all()
-    for (goods, post) in queryRes:
+    for goods in queryRes:
         anObject = {}
         for col in Goods.__table__.columns:
             anObject[col.name] = getattr(goods, col.name)
-        for col in GoodsPost.__table__.columns:
-            anObject[col.name] = getattr(post, col.name)
         if anObject["goodnum"]:
             goodsList.append(anObject)
     return goodsList
@@ -253,14 +244,14 @@ def updateLikes():
     username = flask.request.form.get("username")
     likes = flask.request.form.get("likes")
     try:
-        likeRecord = GoodsLike.query.filter_by(goodid=goodid, username=username).first()
+        likeRecord = Favourite.query.filter_by(goodid=goodid, username=username).first()
         if likeRecord:
             db.session.delete(likeRecord)
         else:
             create_time = datetime.datetime.now().strftime("%Y-%m-%d")
-            newLike = GoodsLike(goodid=goodid, username=username, create_time=create_time)
+            newLike = Favourite(goodid=goodid, username=username, create_time=create_time)
             db.session.add(newLike)
-        GoodsPost.query.filter_by(goodid=goodid).update({
+        Goods.query.filter_by(goodid=goodid).update({
             "likes": likes
         })
         db.session.commit()
@@ -289,9 +280,9 @@ def queryFavourites():
     username = flask.request.form.get("username")
     favouritesList = []
     try:
-        queryRes = db.session.query(GoodsLike, Goods).join(Goods, GoodsLike.goodid == Goods.goodid).filter(
-            GoodsLike.username == username).order_by(
-            GoodsLike.create_time.desc()).all()
+        queryRes = db.session.query(Favourite, Goods).join(Goods, Favourite.goodid == Goods.goodid).filter(
+            Favourite.username == username).order_by(
+            Favourite.create_time.desc()).all()
         for (like, goods) in queryRes:
             anObject = {}
             for col in Goods.__table__.columns:

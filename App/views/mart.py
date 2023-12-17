@@ -47,19 +47,15 @@ def detailPage(goodid):
     try:
         visit_user = flask.session.get("username")
         print(visit_user)
-        queryRes = db.session.query(Goods, GoodsPost.views, GoodsPost.likes).join(GoodsPost,
-                                                                                  Goods.goodid == GoodsPost.goodid).filter_by(
-            goodid=goodid).first()
-        print(queryRes)
+        goods = db.session.query(Goods).filter(
+            Goods.goodid == goodid).first()
+        print(goods)
         for col in Goods.__table__.columns:
-            goods[col.name] = getattr(queryRes[0], col.name)
-        goods["views"] = queryRes[1] + 1
-        goods["likes"] = queryRes[2]
-        post = GoodsPost.query.filter_by(goodid=goodid).first()
-        post.views += 1
-        db.session.add(post)
+            goods[col.name] = getattr(goods[0], col.name)
+        goods.views += 1
+        db.session.add(goods)
         db.session.commit()
-        like = GoodsLike.query.filter_by(goodid=goodid, username=visit_user).first()
+        like = Favourite.query.filter_by(goodid=goodid, username=visit_user).first()
         print(like)
         goods["like"] = like is not None
         print(goods["like"])
@@ -95,7 +91,7 @@ def makeAReservation():
             raise ValueError
         datePrefix = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         rid = "R" + datePrefix + seller.sid[-4:] + buyer.sid[-4:]
-        newReservation = Reservation(rid, buyerUsername, sellerUsername, goodid, number, total)
+        newReservation = Reservation(rid, buyerUsername, goodid, number, total)
         newReservation.create_time = create_time
         goods.goodnum -= 1
         db.session.add(newReservation)

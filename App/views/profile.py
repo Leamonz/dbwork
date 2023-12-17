@@ -136,19 +136,18 @@ def get_reservations(username):
     result_code = 0
 
     # 按时间降序排列
-    reservations = db.session.query(
-        Reservation, Goods.goodname).join(
+    queryRes = db.session.query(
+        Reservation, Goods.goodname, Goods.sellerusername).join(
         Goods, Reservation.goodid == Goods.goodid).filter(
-        Reservation.sellerusername == username).order_by(
+        Goods.sellerusername == username).order_by(
         Reservation.create_time.desc()).all()
-    columns = Reservation.__table__.columns
     reservationList = []
-    for queryRes in reservations:
-        reservation = queryRes[0]
+    for (reservation, goodname, seller) in queryRes:
         anObject = {}
-        for col in columns:
+        for col in Reservation.__table__.columns:
             anObject[col.name] = getattr(reservation, col.name)
-        anObject["goodname"] = queryRes[1]
+        anObject["goodname"] = goodname
+        anObject["sellerusername"] = seller
         if anObject["status"] == 0:
             reservationList.append(anObject)
     print(reservationList)

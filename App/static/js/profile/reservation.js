@@ -79,7 +79,8 @@ function initButtons() {
             (res) => {
                 console.log(res.result_msg);
                 if (res.result_code === 0) {
-                    location.reload();
+                    showWarningModal("您已确认交易");
+                    getReservationList();
                 }
             }
         )

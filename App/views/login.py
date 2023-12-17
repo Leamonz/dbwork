@@ -1,12 +1,21 @@
 import flask
 import random
 import string
+import hashlib
 
 from flask import Blueprint, current_app, g
 from flask_mail import Message
 from App.models import *
 
 login_blueprint = Blueprint("login", __name__, url_prefix='/login')
+
+
+def md5_encrypt(input_passwd):
+    md5 = hashlib.md5()
+    # 将输入密码转换为字节串并进行哈希
+    md5.update(input_passwd.encode("utf-8"))
+    encrypted_passwd = md5.hexdigest()
+    return encrypted_passwd
 
 
 @login_blueprint.route("/page/")
@@ -23,7 +32,8 @@ def login():
         username = flask.request.form.get("username")
         input_passwd = flask.request.form.get("password")
         user = Users.query.filter_by(username=username).first()
-        if input_passwd != user.passwd:
+        md5_passwd = md5_encrypt(input_passwd)
+        if md5_passwd != user.passwd:
             result_msg = "password not match"
             result_code = 10
     response = flask.make_response(flask.jsonify({
@@ -47,7 +57,8 @@ def register():
     passwd = flask.request.form.get("password")
     sid = flask.request.form.get("sid")
     email = flask.request.form.get("email")
-    newUser = Users(username=username, passwd=passwd)
+    md5_passwd = md5_encrypt(passwd)
+    newUser = Users(username=username, passwd=md5_passwd)
     newStudent = Student(sid=sid, username=username, mailaddress=email)
     db.session.add(newUser)
     db.session.add(newStudent)

@@ -22,15 +22,16 @@ def queryReservations():
     reservationList = []
     buyer = flask.request.form.get("buyer")
     # reservations = Reservation.query.filter_by(buyerusername=buyer).all()
-    queryRes = db.session.query(Reservation, Goods.goodname, Goods.imageurl).join(
+    queryRes = db.session.query(Reservation, Goods.goodname, Goods.imageurl, Goods.sellerusername).join(
         Goods, Reservation.goodid == Goods.goodid).filter(
         Reservation.buyerusername == buyer).all()
-    for (reservation, goodname, imageurl) in queryRes:
+    for (reservation, goodname, imageurl, seller) in queryRes:
         anObject = {}
         for col in Reservation.__table__.columns:
             anObject[col.name] = getattr(reservation, col.name)
         anObject["goodname"] = goodname
         anObject["imageurl"] = imageurl
+        anObject["sellerusername"] = seller
         reservationList.append(anObject)
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
