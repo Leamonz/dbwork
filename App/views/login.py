@@ -28,14 +28,16 @@ def login():
     result_msg = "ok"
     result_code = 0
     username = flask.session.get("username")
+    input_passwd = flask.request.form.get("password")
     if not username:
         username = flask.request.form.get("username")
-        input_passwd = flask.request.form.get("password")
         user = Users.query.filter_by(username=username).first()
-        md5_passwd = md5_encrypt(input_passwd)
-        if md5_passwd != user.passwd:
-            result_msg = "password not match"
-            result_code = 10
+    else:
+        user = Users.query.filter_by(username=username).first()
+    md5_passwd = md5_encrypt(input_passwd)
+    if md5_passwd != user.passwd:
+        result_msg = "password not match"
+        result_code = 10
     response = flask.make_response(flask.jsonify({
         "result_msg": result_msg,
         "result_code": result_code,
@@ -168,12 +170,13 @@ def forgot_passwd_page():
         else:
             try:
                 newPasswd = generate_new_password()
+                md5Passwd = md5_encrypt(newPasswd)
                 Users.query.filter_by(username=username).update({
-                    "passwd": newPasswd
+                    "passwd": md5Passwd
                 })
+                db.session.commit()
                 message = Message(subject="新密码", recipients=[mailAddr],
                                   body=f"您的新密码为：{newPasswd}。请及时在个人页面进行修改！")
-                db.session.commit()
             except Exception as e:
                 result_msg = "user not found"
                 result_code = 23
@@ -188,4 +191,5 @@ def forgot_passwd_page():
         }), 200)
         response.content_type = "application/json"
         return response
+
     return flask.render_template("forgot-password.html")

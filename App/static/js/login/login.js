@@ -7,6 +7,7 @@ function onSignInButton() {
         'username': $("#username").val(),
         'password': $("#password").val(),
     }
+    console.log(data);
     $.post(url, data, function (res) {
         console.log(res.result_msg);
         if (res.result_code === 0) {

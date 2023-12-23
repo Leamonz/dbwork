@@ -30,6 +30,7 @@ function onCreateButton() {
 
 function onVerifyButton() {
     if (checkEmailValid()) {
+        clearInterval(interval);
         interval = setInterval(() => {
             document.getElementById("verifyBtn").innerText = `请在${time}s后重新发送`;
             document.getElementById("verifyBtn").classList.add('disabled');
