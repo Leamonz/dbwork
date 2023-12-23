@@ -168,18 +168,11 @@ def forgot_passwd_page():
             result_msg = "email address is empty"
             result_code = 11
         else:
-            try:
-                newPasswd = generate_new_password()
-                md5Passwd = md5_encrypt(newPasswd)
-                Users.query.filter_by(username=username).update({
-                    "passwd": md5Passwd
-                })
-                db.session.commit()
-                message = Message(subject="新密码", recipients=[mailAddr],
-                                  body=f"您的新密码为：{newPasswd}。请及时在个人页面进行修改！")
-            except Exception as e:
-                result_msg = "user not found"
-                result_code = 23
+            message = Message(subject="重置密码", recipients=[mailAddr],
+                              html=f"重置密码的链接为："
+                                   f"<a href='http://localhost:8888/login/{username}/reset_password/'>"
+                                   f"http://localhost:8888/login/{username}/reset_password/"
+                                   f"</a>")
             try:
                 mail.send(message)
             except Exception as e:
@@ -193,3 +186,8 @@ def forgot_passwd_page():
         return response
 
     return flask.render_template("forgot-password.html")
+
+
+@login_blueprint.route("/<string:username>/reset_password/")
+def reset_password(username):
+    return flask.render_template("reset-password.html", username=username)

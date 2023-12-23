@@ -17,13 +17,7 @@ function sendNewPasswd() {
     $.post(url, data, (res) => {
         console.log(res.result_msg);
         if (res.result_code === 0) {
-            new Promise((resolve, reject) => {
-                showModal("新密码已发送到您的邮箱，请查收！");
-                resolve("ok");
-            }).then((e) => {
-                console.log(e);
-                window.location.href = "http://localhost:8888/login/page/";
-            })
+            showModal("重置密码的链接已发送到您的邮箱，请查收！");
         } else {
             showModal(res.result_msg);
         }
