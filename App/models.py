@@ -9,7 +9,7 @@ class Users(db.Model):
     passwd = db.Column(db.String(20), nullable=False)
     student = db.relationship("Student", backref="account", uselist=False, cascade="all, delete-orphan")
     goods = db.relationship("Goods", backref="seller", uselist=True)
-    like = db.relationship("GoodsLike", backref="user", uselist=True)
+    like = db.relationship("Favourite", backref="user", uselist=True)
 
     def __init__(self, username, passwd):
         self.username = username

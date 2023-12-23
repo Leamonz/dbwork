@@ -3,19 +3,19 @@ var interval = null;
 var time = 60;
 var sec = 1000;
 
-function checkOriginPasswd() {
-    var inputPasswd = $("#input_origin_password").val();
-    var originPassword = $("#origin_password").val();
-    var flag = inputPasswd === originPassword;
-    if (flag) {
-        document.getElementById("input_origin_password").classList.remove("is-invalid");
-        document.getElementById("input_origin_password").classList.add("is-valid");
-    } else {
-        document.getElementById("input_origin_password").classList.remove("is-valid");
-        document.getElementById("input_origin_password").classList.add("is-invalid");
-    }
-    return flag;
-}
+// function checkOriginPasswd() {
+//     var inputPasswd = $("#input_origin_password").val();
+//     var originPassword = $("#origin_password").val();
+//     var flag = inputPasswd === originPassword;
+//     if (flag) {
+//         document.getElementById("input_origin_password").classList.remove("is-invalid");
+//         document.getElementById("input_origin_password").classList.add("is-valid");
+//     } else {
+//         document.getElementById("input_origin_password").classList.remove("is-valid");
+//         document.getElementById("input_origin_password").classList.add("is-invalid");
+//     }
+//     return flag;
+// }
 
 function checkNewPasswdValid() {
     var inputPasswd = $("#new_password").val();
@@ -46,6 +46,7 @@ function checkConsistent() {
 }
 
 function onVerifyButton() {
+    clearInterval(interval);
     interval = setInterval(() => {
         document.getElementById("verifyBtn").innerText = `请在${time}s后重新发送`;
         document.getElementById("verifyBtn").classList.add('disabled');

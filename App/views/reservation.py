@@ -50,7 +50,11 @@ def deleteReservation():
     rid = flask.request.form.get("rid")
     print(rid)
     reservation = Reservation.query.filter_by(rid=rid).first()
+    goods = Goods.query.filter_by(goodid=reservation.goodid).first()
+    if reservation.status == 0:
+        goods.goodnum += reservation.num
     try:
+        db.session.add(goods)
         db.session.delete(reservation)
         db.session.commit()
     except Exception as e:

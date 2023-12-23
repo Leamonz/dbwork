@@ -47,13 +47,12 @@ def detailPage(goodid):
     try:
         visit_user = flask.session.get("username")
         print(visit_user)
-        goods = db.session.query(Goods).filter(
-            Goods.goodid == goodid).first()
-        print(goods)
+        queryRes = Goods.query.filter_by(goodid=goodid).first()
+        print(queryRes)
+        queryRes.views += 1
         for col in Goods.__table__.columns:
-            goods[col.name] = getattr(goods[0], col.name)
-        goods.views += 1
-        db.session.add(goods)
+            goods[col.name] = getattr(queryRes, col.name)
+        db.session.add(queryRes)
         db.session.commit()
         like = Favourite.query.filter_by(goodid=goodid, username=visit_user).first()
         print(like)
@@ -70,16 +69,11 @@ def detailPage(goodid):
 def makeAReservation():
     result_msg = "ok"
     result_code = 0
-    try:
-        buyerUsername = flask.request.form.get("buyer")
-        sellerUsername = flask.request.form.get("seller")
-        goodid = flask.request.form.get("goodid")
-        number = flask.request.form.get("num")
-        total = flask.request.form.get("total")
-    except Exception as e:
-        result_msg = "parse post parameters failed"
-        result_code = 5
-        print(str(e))
+    buyerUsername = flask.request.form.get("buyer")
+    sellerUsername = flask.request.form.get("seller")
+    goodid = flask.request.form.get("goodid")
+    number = flask.request.form.get("num")
+    total = flask.request.form.get("total")
     create_time = datetime.datetime.now().strftime("%Y-%m-%d")
     try:
         goods = Goods.query.filter_by(goodid=goodid).first()
@@ -93,9 +87,7 @@ def makeAReservation():
         rid = "R" + datePrefix + seller.sid[-4:] + buyer.sid[-4:]
         newReservation = Reservation(rid, buyerUsername, goodid, number, total)
         newReservation.create_time = create_time
-        goods.goodnum -= 1
         db.session.add(newReservation)
-        db.session.add(goods)
         db.session.commit()
     except ValueError as e:
         result_msg = "user not found"

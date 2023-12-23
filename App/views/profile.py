@@ -1,5 +1,6 @@
 import datetime
 import random
+import hashlib
 
 import flask
 from flask import Blueprint, current_app, g
@@ -7,6 +8,14 @@ from flask_mail import Message
 from ..models import *
 
 profile_blueprint = Blueprint("profile", __name__, url_prefix="/profile")
+
+
+def md5_encrypt(input_passwd):
+    md5 = hashlib.md5()
+    # 将输入密码转换为字节串并进行哈希
+    md5.update(input_passwd.encode("utf-8"))
+    encrypted_passwd = md5.hexdigest()
+    return encrypted_passwd
 
 
 @profile_blueprint.route("/<string:username>/", methods=["GET", "POST"])
@@ -117,8 +126,9 @@ def confirm(username):
     result_msg = "ok"
     result_code = 0
     newPasswd = flask.request.form.get("new_password")
+    md5_passwd = md5_encrypt(newPasswd)
     Users.query.filter_by(username=username).update({
-        "passwd": newPasswd
+        "passwd": md5_passwd
     })
     db.session.commit()
     response = flask.make_response(flask.jsonify({

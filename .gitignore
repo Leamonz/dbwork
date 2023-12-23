@@ -164,3 +164,4 @@ web.config
 /App/static/web_images/
 /App/config.py
 /flask_session
+/App/static/js/node_modules

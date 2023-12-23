@@ -34,6 +34,10 @@ function showReservationModal() {
         }
         var goodid = document.querySelector("#goods_card").dataset.id;
         var num = $("#numberOfGoods").val();
+        if (!checkInputNumber(num)) {
+            showWarningModal("请输入正确的商品数量");
+            return;
+        }
         var price = $("#totalPrice").val();
         var url = "http://localhost:8888/mart/reservation/";
         var data = {
@@ -49,7 +53,13 @@ function showReservationModal() {
             data,
             (res) => {
                 console.log(res.result_msg);
-                window.location.href = "http://localhost:8888/mart/";
+                console.log(res);
+                new Promise((resolve, reject) => {
+                    showWarningModal("申请预约成功");
+                    resolve("ok");
+                }).then((_) => {
+                    window.location.href = "http://localhost:8888/mart/";
+                })
             }
         )
     })
@@ -58,19 +68,26 @@ function showReservationModal() {
 
 document.querySelector("#numberOfGoods").oninput = (e) => {
     var numberOfGoods = Number(e.target.value);
+    checkInputNumber(numberOfGoods);
+}
+
+function checkInputNumber(numberOfGoods) {
     var price = Number($("#detail_price").html());
     var totalPrice = Number((numberOfGoods * price).toFixed(2));
     var maxNumber = Number($("#detail_num").html());
     console.log(totalPrice);
-    if (isNaN(totalPrice)) {
+    if (isNaN(totalPrice) || numberOfGoods < 0) {
         document.querySelector("#totalPrice").classList.add("parsley-error");
         $("#totalPrice").val("商品数量有误！");
+        return false
     } else if (numberOfGoods > maxNumber) {
         document.querySelector("#totalPrice").classList.add("parsley-error");
         $("#totalPrice").val(`商品数量超过剩余的最大数量: ${maxNumber}！`);
+        return false;
     } else {
         document.querySelector("#totalPrice").classList.remove("parsley-error");
         $("#totalPrice").val(totalPrice);
+        return true;
     }
 }
 

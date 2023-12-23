@@ -175,15 +175,20 @@ def modify(username):
         result_code = 5
         print(str(e))
     goods = Goods.query.filter_by(goodid=goodid).first()
+    reservations = Reservation.query.filter_by(goodid=goodid).all()
+    goods.goodname = goodname
+    goods.goodprice = float(goodprice)
+    goods.goodnum = int(goodnum)
+    goods.description = description
+    for reservation in reservations:
+        reservation.total = goods.goodprice * reservation.num
     if objImageFile.filename:
-        objImageFile.save(goods.imageurl)
-    Goods.query.filter_by(goodid=goodid).update({
-        "goodname": goodname,
-        "goodprice": goodprice,
-        "goodnum": goodnum,
-        "description": description
-    })
+        imageLocalPath = os.path.join(r"D:\Program_work\dbwork\App\static\web_images", goods.imageurl.split("/")[-1])
+        print(imageLocalPath)
+        objImageFile.save(imageLocalPath)
     try:
+        db.session.add(goods)
+        db.session.add_all(reservations)
         db.session.commit()
     except Exception as e:
         print(str(e))
